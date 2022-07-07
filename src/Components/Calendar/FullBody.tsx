@@ -2,23 +2,28 @@
 import React from 'react';
 
 import FullCalendar, { EventContentArg} from '@fullcalendar/react' // must go before plugins
-
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import events from "../Events";
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import {
+getDate,
+  setDate
+} from '../../redux/date/dateSlice';
+
 import customViewPlugin from '../CalendarPlugin/CustomView';
 import LunarDateTime from '../../Libraries/Lunnar/LunarDateTime';
+//import events from "../Events";
 
 type FullBodyProps = {
     headerToolbar: any,
-    setDate: any
 }
 
 function FullBody(props:FullBodyProps){
-
-    const {headerToolbar, setDate} = props;
+    const currentDate = useAppSelector(getDate);
+    const dispatch = useAppDispatch();
+    const {headerToolbar} = props;
 
     function renderEventContent(eventContent: EventContentArg) {
         return (
@@ -61,9 +66,7 @@ function FullBody(props:FullBodyProps){
     }
 
     function dateClickHandler(event:{date:Date}){
-        if( typeof setDate === 'function'){
-            setDate(event.date)
-        }
+        dispatch(setDate(event.date.toString()))
     }
 
     return <FullCalendar

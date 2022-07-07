@@ -27,7 +27,6 @@ const colors : { [key: string]: any }  = {
 
 function App() {
     const [display, setDisplay] = useState("calendar");
-    const [dateSelect, setDateSelect] = useState(new Date());
 
     const renderListItem = (data:any) => {
         console.log(`render list item`, {data})
@@ -99,7 +98,7 @@ function App() {
 
               {display === "calendar" && (
                 //   <FullBody headerToolbar={true} />
-                  <LunarBody setDate={setDateSelect} />
+                  <LunarBody />
               )}
           </Container>
 

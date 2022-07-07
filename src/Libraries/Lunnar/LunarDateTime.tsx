@@ -59,6 +59,22 @@ export default class LunarDateTime extends CanChi {
       this.lunar = this.findLunarDate(jd, ly);
     }
   
+    format(format?: string){
+      let day = this.lunar.day.toString();
+      if( this.lunar.day < 10){
+        day = `0${day}`;
+      }
+      let month = this.lunar.month.toString();
+      if( this.lunar.month < 10){
+        month = `0${month}`;
+      }
+
+        switch(format){
+          case 'DD-MM':
+            return `${day}-${month}`;
+        }
+    }
+
     get day() {
       return this.lunar.day.toString();
     }

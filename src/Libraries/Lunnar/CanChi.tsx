@@ -32,12 +32,12 @@ export default class CanChi  extends LunarCalculator {
     return `Ngày ${cc[0]}, tháng ${cc[1]}, năm ${cc[2]}`;
   }
 
-  get YearName(){
+  get year_name(){
     const {year} = this.lunar;
     return CAN[(year+6) % 10] + " " + CHI[(year+8) % 12];
   }
 
-  get gioHoangDao() {
+  get gio_hoang_dao() {
     const {jd} = this.lunar;
     const chiOfDay = (jd+1) % 12;
     const gioHD = GIO_HD[chiOfDay % 6]; // same values for Ty' (1) and Ngo. (6), for Suu and Mui etc.
@@ -55,7 +55,7 @@ export default class CanChi  extends LunarCalculator {
     return ret;
   }
 
-  get TietKhi(){
+  get tiet_khi(){
     const sunLng = this.getSunLongitude(this.lunar.jd+1, 7.0);
     return TIETKHI[sunLng];
   }
