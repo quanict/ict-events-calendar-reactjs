@@ -2,7 +2,7 @@ import CanChi from "./CanChi";
 import {TUAN} from "./Constants";
 
 export default class LunarDateTime extends CanChi {
-    date:string;
+    date:any;
     solar:Date;
 
     constructor(date:any=null) {
@@ -25,11 +25,20 @@ export default class LunarDateTime extends CanChi {
     }
   
     initSolar(){
-      if( ! this.date || this.date.length < 8){
-        this.solar = new Date();
-      } else {
-        this.solar = new Date(this.date);
+      const {date} = this;
+      let test = typeof this.date;
+      
+      if( this.date instanceof Date ){
+        this.solar = this.date;
+        return;
       }
+      
+      if( typeof this.date === 'string' ){
+        this.solar = new Date(this.date);
+        return;
+      }
+
+      this.solar = new Date();
     }
   
     initLunar(){
@@ -50,7 +59,11 @@ export default class LunarDateTime extends CanChi {
       this.lunar = this.findLunarDate(jd, ly);
     }
   
-    get getDay() {
+    get day() {
+      return this.lunar.day.toString();
+    }
+
+    get Day() {
       let day = this.lunar.day.toString();
       if (day.length < 2) day = "0" + day;
   

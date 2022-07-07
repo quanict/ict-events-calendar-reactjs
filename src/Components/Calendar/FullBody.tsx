@@ -13,14 +13,14 @@ import LunarDateTime from '../../Libraries/Lunnar/LunarDateTime';
 
 type FullBodyProps = {
     headerToolbar: any,
+    setDate: any
 }
 
 function FullBody(props:FullBodyProps){
 
-    const {headerToolbar} = props;
+    const {headerToolbar, setDate} = props;
 
     function renderEventContent(eventContent: EventContentArg) {
-        //console.log(`============ renderEventContent`, {eventContent})
         return (
             <>
                 <b>{eventContent.timeText}</b>
@@ -29,20 +29,42 @@ function FullBody(props:FullBodyProps){
         )
     }
 
-    function dayCellLunarRender(info:any){
-        const htmlElement = info.el;
-        const date = info.date;
-        //let element = "<div style='position: absolute; left: 4px; top: 4px;'><a href='https://www.w3schools.com/'>TEST-"+info.dayNumberText+"</a></div>";
-        //$('#fc-day-span-'+info.date.getDayOfYear()).parent().parent().prepend(element);
-        console.log(`===== dd daycell render`, {info, htmlElement, date})
+    function dayCellLunarRender(info: {date:Date, el : HTMLElement}){
+        const dayFrameElements : HTMLCollection = info.el.getElementsByClassName('fc-daygrid-day-frame');
+        const today = new Date();
+        if( !dayFrameElements ){
+            return;
+        }
+        const dayFrame : Element | null =  dayFrameElements.item(0);
+
+        if( info.date.toDateString() === today.toDateString() ){
+            dayFrame?.classList.add('fc-daygrid-today');
+        }
+
+        if( info.el.getElementsByClassName('fc-daygrid-day-lunnar').length > 0 ){
+            return; // skip add lunar date
+        }
+        
+               
+        let lunarDate = new LunarDateTime(info.date);
+        const lunarElm = document.createElement('div');
+        lunarElm.className = "fc-daygrid-day-lunnar";
+        lunarElm.textContent = lunarDate.day;
+        dayFrame?.append(lunarElm);
+
+        // console.log(`========`,lunarDate)
+        // console.log(`========`,lunarDate.getDay, lunarDate.DayName )
+        // console.log(lunarDate.YearName)
+        // console.log(lunarDate.gioHoangDao)
+        // console.log(lunarDate.TietKhi)
+
     }
 
-    let lunarDate = new LunarDateTime();
-console.log(`========`,lunarDate)
-console.log(`========`,lunarDate.getDay, lunarDate.DayName )
-console.log(lunarDate.YearName)
-console.log(lunarDate.gioHoangDao)
-console.log(lunarDate.TietKhi)
+    function dateClickHandler(event:{date:Date}){
+        if( typeof setDate === 'function'){
+            setDate(event.date)
+        }
+    }
 
     return <FullCalendar
         plugins={[ dayGridPlugin, timeGridPlugin, bootstrap5Plugin, interactionPlugin, customViewPlugin ]}
@@ -57,8 +79,8 @@ console.log(lunarDate.TietKhi)
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         }}
 
-        editable={true}
-        selectable={true}
+        editable={false}
+        selectable={false}
         selectMirror={true}
         dayMaxEvents={true}
         //weekends={this.state.weekendsVisible}
@@ -66,6 +88,7 @@ console.log(lunarDate.TietKhi)
         //select={this.handleDateSelect}
         eventContent={renderEventContent}
         dayCellDidMount={dayCellLunarRender}
+        dateClick={dateClickHandler}
         //eventClick={this.handleEventClick}
         //eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
         /* you can update a remote database when these fire:

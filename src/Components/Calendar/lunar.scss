@@ -56,7 +56,21 @@ body {
             }
         }
 
-       
+        .fc-daygrid-day-frame {
+            padding: 5px;
+            &:hover {
+                cursor: pointer;
+            }
+            &.fc-daygrid-today,
+            &:hover {
+                background-color: rgba(200, 200, 200, 0.6);
+            }
+            .fc-daygrid-day-lunnar {
+                font-size: .7em;
+                color: rgb(93, 93, 93, .6);
+
+            }
+        }
     }
 
     .lunar-info {

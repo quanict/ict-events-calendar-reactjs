@@ -8,7 +8,12 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import FullBody from './FullBody';
 import "./lunar.scss";
 
-function LunarBody(){
+type LunarBodyProps = {
+    setDate: any
+}
+
+function LunarBody(props:LunarBodyProps){
+    const {setDate} = props;
 
     return(
         <Row className="lunar-calendar mx-0 mt-3 mb-3">
@@ -29,7 +34,7 @@ function LunarBody(){
                 </div>
             </Col>
             <Col md="9" className='calendar-wrap'>
-                <FullBody headerToolbar={false}/>
+                <FullBody headerToolbar={false} setDate={setDate}  />
             </Col>
         </Row>
     );
