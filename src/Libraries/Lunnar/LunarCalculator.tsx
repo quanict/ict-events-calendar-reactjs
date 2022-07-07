@@ -142,4 +142,4 @@ export default class LunarCalculator {
       L = L - PiNumber*2*(toInt(L/(PiNumber*2))); // Normalize to (0, 2*PI)
       return L;
     }
-  }
+}

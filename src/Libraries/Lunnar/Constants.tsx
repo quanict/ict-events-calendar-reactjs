@@ -1,7 +1,7 @@
 
-export const CAN = new Array("Gi\341p", "\u1EA4t", "B\355nh", "\u0110inh", "M\u1EADu", "K\u1EF7", "Canh", "T\342n", "Nh\342m", "Qu\375");
-export const CHI = new Array("T\375", "S\u1EEDu", "D\u1EA7n", "M\343o", "Th\354n", "T\u1EF5", "Ng\u1ECD", "M\371i", "Th\342n", "D\u1EADu", "Tu\u1EA5t", "H\u1EE3i");
-export const TUAN = new Array("Ch\u1EE7 nh\u1EADt", "Th\u1EE9 hai", "Th\u1EE9 ba", "Th\u1EE9 t\u01B0", "Th\u1EE9 n\u0103m", "Th\u1EE9 s\341u", "Th\u1EE9 b\u1EA3y");
+export const CAN = new Array("Giáp", "Ất", "Bính", "Đinh", "M\u1EADu", "K\u1EF7", "Canh", "Tân", "Nhâm", "Quý");
+export const CHI = new Array("Tý", "S\u1EEDu", "D\u1EA7n", "Mão", "Thìn", "T\u1EF5", "Ng\u1ECD", "Mùi", "Thân", "D\u1EADu", "Tu\u1EA5t", "H\u1EE3i");
+export const TUAN = new Array("Ch\u1EE7 nh\u1EADt", "Th\u1EE9 hai", "Th\u1EE9 ba", "Th\u1EE9 t\u01B0", "Th\u1EE9 n\u0103m", "Th\u1EE9 sáu", "Th\u1EE9 b\u1EA3y");
 export const GIO_HD = new Array("110100101100", "001101001011", "110011010010", "101100110100", "001011001101", "010010110011");
 
 export const TIETKHI = new Array(

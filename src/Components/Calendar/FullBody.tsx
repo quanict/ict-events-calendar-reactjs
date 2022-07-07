@@ -9,6 +9,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import events from "../Events";
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import customViewPlugin from '../CalendarPlugin/CustomView';
+import LunarDateTime from '../../Libraries/Lunnar/LunarDateTime';
 
 type FullBodyProps = {
     headerToolbar: any,
@@ -35,6 +36,13 @@ function FullBody(props:FullBodyProps){
         //$('#fc-day-span-'+info.date.getDayOfYear()).parent().parent().prepend(element);
         console.log(`===== dd daycell render`, {info, htmlElement, date})
     }
+
+    let lunarDate = new LunarDateTime();
+console.log(`========`,lunarDate)
+console.log(`========`,lunarDate.getDay, lunarDate.DayName )
+console.log(lunarDate.YearName)
+console.log(lunarDate.gioHoangDao)
+console.log(lunarDate.TietKhi)
 
     return <FullCalendar
         plugins={[ dayGridPlugin, timeGridPlugin, bootstrap5Plugin, interactionPlugin, customViewPlugin ]}
