@@ -54,14 +54,10 @@ function FullBody(props:FullBodyProps){
         let lunarDate = new LunarDateTime(info.date);
         const lunarElm = document.createElement('div');
         lunarElm.className = "fc-daygrid-day-lunnar";
-        lunarElm.textContent = lunarDate.day;
+        lunarElm.textContent = lunarDate.format("d/m");
         dayFrame?.append(lunarElm);
 
-        // console.log(`========`,lunarDate)
-        // console.log(`========`,lunarDate.getDay, lunarDate.DayName )
-        // console.log(lunarDate.YearName)
-        // console.log(lunarDate.gioHoangDao)
-        // console.log(lunarDate.TietKhi)
+
 
     }
 

@@ -3,7 +3,7 @@ import {TUAN} from "./Constants";
 
 export default class LunarDateTime extends CanChi {
     date:any;
-    solar:Date;
+    solar: Date;
 
     constructor(date:any=null) {
       super();
@@ -58,8 +58,22 @@ export default class LunarDateTime extends CanChi {
   
       this.lunar = this.findLunarDate(jd, ly);
     }
+
+    importFromLunar(day : number, month: number, year?: number){
+      let dd, mm, yy, sd, ld;
+
+     dd = day-0;
+     mm = month-0;
+     yy = year ? year : (new Date()).getFullYear()-0;
+     this.solar = this.getSolarDate(dd, mm, yy);
+     this.initLunar();
+     
+    }
   
     format(format?: string){
+      if( !format ){
+        format = "DDDD MMMM YYYY";
+      }
       let day = this.lunar.day.toString();
       if( this.lunar.day < 10){
         day = `0${day}`;
@@ -69,12 +83,53 @@ export default class LunarDateTime extends CanChi {
         month = `0${month}`;
       }
 
-        switch(format){
-          case 'DD-MM':
-            return `${day}-${month}`;
-        }
+      const dayInt = parseInt(day);
+      const monthInt = parseInt(month);
+
+      let output = format.slice();
+      const CanChi = this.getCanChi();
+      const yearCanChi = CanChi[2];
+      const monthCanChi = CanChi[1];
+      const dayCanChi = CanChi[0];
+      
+      output = output.replaceAll('YYYY', yearCanChi);
+      output = output.replaceAll('MMMM', monthCanChi);
+      output = output.replaceAll('DDDD', dayCanChi);
+
+      output = output.replaceAll('YY', yearCanChi);
+      output = output.replaceAll('MM', month);
+      output = output.replaceAll('DD', day);
+
+      output = output.replaceAll('d', dayInt.toString());
+      output = output.replaceAll('m', monthInt.toString());
+
+
+
+      return output;
+    //return `Ngày ${cc[0]}, tháng ${cc[1]}, năm ${cc[2]}`;
+      // switch(format){
+      //   case 'DD-MM':
+      //     return `${day}-${month}`;
+      //   case 'YYYY':
+      //       return CanChi[2];
+      //     case 'MMMM':
+      //       return monthCanChi;
+      // }
     }
 
+   
+    getDayString(lunar:any, solarDay:any, solarMonth:any, solarYear:any) {
+      var s;
+      var dayOfWeek = TUAN[(lunar.jd + 1) % 7];
+      s = dayOfWeek + " " + solarDay + "/" + solarMonth + "/" + solarYear;
+      s += " -+- ";
+      //s = s + "Ng\u00E0y " + lunar.day+" th\341ng "+lunar.month;
+      if (lunar.leap == 1) {
+        s = s + " nhu\u1EADn";
+      }
+      return s;
+    }
+  
     get day() {
       return this.lunar.day.toString();
     }
@@ -88,20 +143,7 @@ export default class LunarDateTime extends CanChi {
   
       return `${month}/${day}`
     }
-  
-  
-    getDayString(lunar:any, solarDay:any, solarMonth:any, solarYear:any) {
-      var s;
-      var dayOfWeek = TUAN[(lunar.jd + 1) % 7];
-      s = dayOfWeek + " " + solarDay + "/" + solarMonth + "/" + solarYear;
-      s += " -+- ";
-      //s = s + "Ng\u00E0y " + lunar.day+" th\341ng "+lunar.month;
-      if (lunar.leap == 1) {
-        s = s + " nhu\u1EADn";
-      }
-      return s;
-    }
-  
+
    get toString() {
     //   var s = getDayString(currentLunarDate, today.getDate(), today.getMonth()+1, today.getFullYear());
     //   s += " n\u0103m " + getYearCanChi(currentLunarDate.year);

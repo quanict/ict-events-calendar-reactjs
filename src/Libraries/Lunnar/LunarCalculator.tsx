@@ -142,4 +142,20 @@ export default class LunarCalculator {
       L = L - PiNumber*2*(toInt(L/(PiNumber*2))); // Normalize to (0, 2*PI)
       return L;
     }
+
+    getSolarDate(dd:number, mm:number, yyyy:number) : Date {
+      if (yyyy < 1200 || 2199 < yyyy) {
+        //return new LunarDate(0, 0, 0, 0, 0);
+        return new Date();
+      }
+
+      var ly = this.getYearInfo(yyyy);
+      var lm = ly[mm-1];
+      if (lm.month != mm) {
+        lm = ly[mm];
+      }
+      var ld = lm.jd + dd - 1;
+      const sd = this.jdn2date(ld);
+      return new Date(sd[2], sd[1], sd[0]);
+    }
 }

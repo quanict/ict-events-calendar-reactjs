@@ -13,37 +13,43 @@ getDate,
 import LunarDateTime from '../../Libraries/Lunnar/LunarDateTime';
 import FullBody from './FullBody';
 import "./lunar.scss";
+import { fromDate, fromLunar } from '../../Libraries/Lunnar';
 
 type LunarBodyProps = {
 }
 
 function LunarBody(props:LunarBodyProps){
     const currentDate = useAppSelector(getDate);
-    const lunar = new LunarDateTime(currentDate);
-    console.log(`========`,{lunar})
-console.log(`========`,lunar.day, lunar.DayName)
-console.log(lunar.year_name)
-console.log(lunar.gio_hoang_dao)
-console.log(lunar.tiet_khi)
+    let lunar = fromDate(currentDate);
+    //lunar = fromLunar(1,6);
+    
 
     return(
         <Row className="lunar-calendar mx-0 mt-3 mb-3">
             <Col md="3" className='lunar-info d-flex'>
                 <p className="reset-btn">reset</p>
                 <div className="p-0 lunar-header">
+                    <Row>
                     <div className="pre-button d-flex align-items-center justify-content-center">
                         <FontAwesomeIcon icon={faChevronLeft} />
-
                     </div>
                     <div className="head-info">
                         <div className="head-day text-center">{moment(currentDate).format("DD")}</div>
                         <div className="head-month text-center">{moment(currentDate).format("MMMM-YYYY")}</div>
-                        <div className="head-day-lunar text-center">{lunar.format("DD-MM")}</div>
+                        <div className="head-day-lunar text-center">{lunar.format("d-m")}</div>
                     </div>
                     <div className="next-button d-flex align-items-center justify-content-center">
                         <FontAwesomeIcon icon={faChevronRight} />
                     </div>
+                    </Row>
+                    <Row className="lunar-date">
+                    <Col><p>Giờ</p></Col>
+                    <Col><p>Ngày</p><span className='d-block'>{lunar.format("DDDD")}</span></Col>
+                    <Col><p>Tháng</p><span className='d-block'>{lunar.format("MMMM")}</span></Col>
+                    <Col><p>Năm</p><span className='d-block'>{lunar.format("YYYY")}</span></Col>
+                </Row>
                 </div>
+                
             </Col>
             <Col md="9" className='calendar-wrap'>
                 <FullBody headerToolbar={false} />
