@@ -8,21 +8,18 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import {
 getDate,
+getLunarDate,
   setDate
 } from '../../redux/date/dateSlice';
-import LunarDateTime from '../../Libraries/Lunnar/LunarDateTime';
 import FullBody from './FullBody';
 import "./lunar.scss";
-import { fromDate, fromLunar } from '../../Libraries/Lunnar';
+import lunar from '../../Libraries/Lunnar/lunar';
 
-type LunarBodyProps = {
-}
-
-function LunarBody(props:LunarBodyProps){
-    const currentDate = useAppSelector(getDate);
-    let lunar = fromDate(currentDate);
-    //lunar = fromLunar(1,6);
-    
+function LunarBody(){
+    const currentLunar = useAppSelector(getLunarDate);
+    //const currentDate = useAppSelector(getDate);
+    //let lunarDate = lunar(currentDate);
+    //lunarDate = lunar(1,6);
 
     return(
         <Row className="lunar-calendar mx-0 mt-3 mb-3">
@@ -34,9 +31,9 @@ function LunarBody(props:LunarBodyProps){
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </div>
                     <div className="head-info">
-                        <div className="head-day text-center">{moment(currentDate).format("DD")}</div>
-                        <div className="head-month text-center">{moment(currentDate).format("MMMM-YYYY")}</div>
-                        <div className="head-day-lunar text-center">{lunar.format("d-m")}</div>
+                        <div className="head-day text-center">{currentLunar.moment.format("DD")}</div>
+                        <div className="head-month text-center">{currentLunar.moment.format("MMMM-YYYY")}</div>
+                        <div className="head-day-lunar text-center">{currentLunar.format("d-m")}</div>
                     </div>
                     <div className="next-button d-flex align-items-center justify-content-center">
                         <FontAwesomeIcon icon={faChevronRight} />
@@ -44,9 +41,9 @@ function LunarBody(props:LunarBodyProps){
                     </Row>
                     <Row className="lunar-date">
                     <Col><p>Giờ</p></Col>
-                    <Col><p>Ngày</p><span className='d-block'>{lunar.format("DDDD")}</span></Col>
-                    <Col><p>Tháng</p><span className='d-block'>{lunar.format("MMMM")}</span></Col>
-                    <Col><p>Năm</p><span className='d-block'>{lunar.format("YYYY")}</span></Col>
+                    <Col><p>Ngày</p><span className='d-block'>{currentLunar.format("DDDD")}</span></Col>
+                    <Col><p>Tháng</p><span className='d-block'>{currentLunar.format("MMMM")}</span></Col>
+                    <Col><p>Năm</p><span className='d-block'>{currentLunar.format("YYYY")}</span></Col>
                 </Row>
                 </div>
                 

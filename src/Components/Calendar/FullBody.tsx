@@ -8,8 +8,9 @@ import interactionPlugin from '@fullcalendar/interaction'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import {
-getDate,
-  setDate
+    getDate,
+    getLunarDate,
+    setDate
 } from '../../redux/date/dateSlice';
 
 import customViewPlugin from '../CalendarPlugin/CustomView';
@@ -22,6 +23,7 @@ type FullBodyProps = {
 
 function FullBody(props:FullBodyProps){
     const currentDate = useAppSelector(getDate);
+    const currentLunar = useAppSelector(getLunarDate);
     const dispatch = useAppDispatch();
     const {headerToolbar} = props;
 
@@ -37,12 +39,17 @@ function FullBody(props:FullBodyProps){
     function dayCellLunarRender(info: {date:Date, el : HTMLElement}){
         const dayFrameElements : HTMLCollection = info.el.getElementsByClassName('fc-daygrid-day-frame');
         const today = new Date();
+
         if( !dayFrameElements ){
             return;
         }
         const dayFrame : Element | null =  dayFrameElements.item(0);
 
         if( info.date.toDateString() === today.toDateString() ){
+            dayFrame?.classList.add('fc-daygrid-today');
+        }
+
+        if( currentLunar.moment.isSame(info.date,'day') ){
             dayFrame?.classList.add('fc-daygrid-today');
         }
 
@@ -56,13 +63,22 @@ function FullBody(props:FullBodyProps){
         lunarElm.className = "fc-daygrid-day-lunnar";
         lunarElm.textContent = lunarDate.format("d/m");
         dayFrame?.append(lunarElm);
-
-
-
     }
 
-    function dateClickHandler(event:{date:Date}){
-        dispatch(setDate(event.date.toString()))
+    function dateClickHandler(info:{date:Date, dayEl: HTMLElement}){
+        dispatch(setDate(info.date.toString()));
+
+        const daySelected = document.querySelectorAll('.fc-daygrid-selected');
+        daySelected.forEach(day => {
+            day.classList.remove('fc-daygrid-selected');
+        });
+
+        const dayFrameElements : Element[] = Array.from(info.dayEl.getElementsByClassName('fc-daygrid-day-frame'));
+        dayFrameElements.forEach((dayFrame: Element) => {
+            dayFrame?.classList.add('fc-daygrid-selected');
+        })
+
+       
     }
 
     return <FullCalendar

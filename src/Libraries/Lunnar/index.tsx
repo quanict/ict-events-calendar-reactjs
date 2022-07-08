@@ -10,11 +10,23 @@
  */
 
 import LunarDateTime from "./LunarDateTime";
+//import Lunar from "./lunar";
 
- interface fromLunar {
+const lunar = function(){
+
+};
+
+export default lunar;
+
+interface fromLunar {
     (day : number, month: number): number;
     (day : number, month: number, year: number): number;
 }
+
+// let orderFn: lunar = function (cId, mId) {
+//     // processing the order
+//     return true // processed successfully!
+// }
 
 export const fromLunar = (day : number, month: number, year?: number) => {
     const lunarObject = new LunarDateTime();
@@ -27,6 +39,14 @@ export const fromDate = (date: Date) => {
 }
 
 
+// const lunarfn : typeof lunar = (day:number, month:number, year:number) => {
+//     const lunarObject = new LunarDateTime();
+//     lunarObject.importFromLunar(day, month, year);
+//     return lunarObject;
+// }
+
+
+
 /**
  * console.log(`========`,lunarDate)
 console.log(`========`,lunarDate.getDay, lunarDate.DayName)
@@ -34,3 +54,7 @@ console.log(lunarDate.YearName)
 console.log(lunarDate.GioHoangDao)
 console.log(lunarDate.TietKhi)
  */
+
+
+//export = lunar;
+//export as namespace lunar;

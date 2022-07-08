@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import lunar from '../../Libraries/Lunnar/lunar';
 import { RootState, AppThunk } from '../store';
 import { fetchCount } from './dateApi';
 
@@ -77,6 +78,9 @@ export const { increment, decrement, incrementByAmount, setDate } = counterSlice
 export const selectCount = (state: RootState) => state.counter.value;
 
 export const getDate = (state: RootState) => new Date(state.counter.dateSeleled);
+export const getLunarDate = (state: RootState) => lunar(state.counter.dateSeleled);
+
+
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
 export const incrementIfOdd =
