@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 //import logo from './logo.svg';
-//import './App.css';
 import './App.scss';
 import { DataView } from "primereact/dataview";
 import events from "./Components/Events";
-
-
 import { Container } from 'react-bootstrap';
-import { LunarBody} from './Components/Calendar';
+import { LunarBody } from './Components/Calendar';
 import Header from './Components/Header';
 
 const colors : { [key: string]: any }  = {
@@ -97,7 +94,6 @@ function App() {
               )}
 
               {display === "calendar" && (
-                //   <FullBody headerToolbar={true} />
                   <LunarBody />
               )}
           </Container>

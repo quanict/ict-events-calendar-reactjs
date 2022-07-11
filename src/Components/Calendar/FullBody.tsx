@@ -77,8 +77,6 @@ function FullBody(props:FullBodyProps){
         dayFrameElements.forEach((dayFrame: Element) => {
             dayFrame?.classList.add('fc-daygrid-selected');
         })
-
-       
     }
 
     return <FullCalendar

@@ -1,19 +1,14 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
-//import { faFaceRelieved } from '@fortawesome/free-regular-svg-icons';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useAppSelector } from '../../redux/hooks';
 import { getLunarDate } from '../../redux/date/dateSlice';
 import FullBody from './FullBody';
 import "./lunar.scss";
 
-function LunarBody(){
-    const currentLunar = useAppSelector(getLunarDate);
-    //const currentDate = useAppSelector(getDate);
-    //let lunarDate = lunar(currentDate);
-    //lunarDate = lunar(1,6);
+function Style2(){
+    const date = useAppSelector(getLunarDate);
 
     return(
         <Row className="lunar-calendar mx-0 mt-3 mb-3">
@@ -24,20 +19,19 @@ function LunarBody(){
                     <div className="pre-button d-flex align-items-center justify-content-center">
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </div>
-                    <div className="head-info">
-                        <div className="head-day text-center">{currentLunar.moment.format("DD")}</div>
-                        <div className="head-month text-center">{currentLunar.moment.format("MMMM-YYYY")}</div>
-                        <div className="head-day-lunar text-center">{currentLunar.format("d-m")}</div>
+                    <div className="head-info d-none">
+                        <div className="head-day text-center">{date.moment.format("DD")}</div>
+                        <div className="head-month text-center">{date.moment.format("MMMM-YYYY")}</div>
+                        <div className="head-day-lunar text-center">{date.format("d-m")}</div>
                     </div>
                     <div className="next-button d-flex align-items-center justify-content-center">
                         <FontAwesomeIcon icon={faChevronRight} />
                     </div>
                     </Row>
                     <Row className="lunar-date">
-                    <Col><p>Giờ</p></Col>
-                    <Col><p>Ngày</p><span className='d-block'>{currentLunar.format("DDDD")}</span></Col>
-                    <Col><p>Tháng</p><span className='d-block'>{currentLunar.format("MMMM")}</span></Col>
-                    <Col><p>Năm</p><span className='d-block'>{currentLunar.format("YYYY")}</span></Col>
+                    <Col><p>Ngày</p><span className='d-block'>{date.format("DDDD")}</span></Col>
+                    <Col><p>Tháng</p><span className='d-block'>{date.format("MMMM")}</span></Col>
+                    <Col><p>Năm</p><span className='d-block'>{date.format("YYYY")}</span></Col>
                 </Row>
                 </div>
                 
@@ -50,4 +44,4 @@ function LunarBody(){
 }
 
 
-export default LunarBody;
+export default Style2;
