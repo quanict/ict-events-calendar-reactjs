@@ -6,6 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import lunarStyle2Plugin from '../../Libraries/fullcalendar/Style2Plugin';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import {
     getDate,
@@ -19,13 +20,23 @@ import LunarDateTime from '../../Libraries/Lunnar/LunarDateTime';
 
 type FullBodyProps = {
     headerToolbar: any,
+    themePlugin?: any
 }
 
 function FullBody(props:FullBodyProps){
     const currentDate = useAppSelector(getDate);
     const currentLunar = useAppSelector(getLunarDate);
     const dispatch = useAppDispatch();
-    const {headerToolbar} = props;
+    const {headerToolbar, themePlugin} = props;
+    let headerToolbarProps : any = {
+        left : 'prev,next today',
+        center : 'title',
+        right : 'dayGridMonth,timeGridWeek,timeGridDay'
+    }
+
+    if( headerToolbar===false  ){
+        headerToolbarProps = false;
+    }
 
     function renderEventContent(eventContent: EventContentArg) {
         return (
@@ -79,37 +90,53 @@ function FullBody(props:FullBodyProps){
         })
     }
 
-    return <FullCalendar
-        plugins={[ dayGridPlugin, timeGridPlugin, bootstrap5Plugin, interactionPlugin, customViewPlugin ]}
-        //plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        //themeSystem="bootstrap5"
-        //initialView="dayGridMonth"
-        //events={events}
+    switch(themePlugin){
+        case 'lunar_style2':
+            return <FullCalendar 
+                plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin, customViewPlugin, lunarStyle2Plugin ]}
+                themeSystem="lunar_style2"
+                //initialView="dayGridMonth"
+                //events={events}
+                editable={false}
+                selectable={false}
+                selectMirror={true}
+                dayMaxEvents={true}
+                eventContent={renderEventContent}
+                dayCellDidMount={dayCellLunarRender}
+                dateClick={dateClickHandler}
+                headerToolbar={headerToolbarProps}
+            />
+        case 'bootstrap5':
+            return <FullCalendar 
+                plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin, customViewPlugin, bootstrap5Plugin ]}
+                themeSystem="bootstrap5"
+                //initialView="dayGridMonth"
+                //events={events}
+                editable={false}
+                selectable={false}
+                selectMirror={true}
+                dayMaxEvents={true}
+                eventContent={renderEventContent}
+                dayCellDidMount={dayCellLunarRender}
+                dateClick={dateClickHandler}
+                headerToolbar={headerToolbarProps}
+            />
+        default:
+            return <FullCalendar 
+                plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin, customViewPlugin ]}
+                //initialView="dayGridMonth"
+                //events={events}
+                editable={false}
+                selectable={false}
+                selectMirror={true}
+                dayMaxEvents={true}
+                eventContent={renderEventContent}
+                dayCellDidMount={dayCellLunarRender}
+                dateClick={dateClickHandler}
+                headerToolbar={headerToolbarProps}
+            />
+    }
 
-        headerToolbar = {headerToolbar===false ? false : {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        }}
-
-        editable={false}
-        selectable={false}
-        selectMirror={true}
-        dayMaxEvents={true}
-        //weekends={this.state.weekendsVisible}
-        //initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-        //select={this.handleDateSelect}
-        eventContent={renderEventContent}
-        dayCellDidMount={dayCellLunarRender}
-        dateClick={dateClickHandler}
-        //eventClick={this.handleEventClick}
-        //eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-        /* you can update a remote database when these fire:
-        eventAdd={function(){}}
-        eventChange={function(){}}
-        eventRemove={function(){}}
-        */
-    />
 }
 
 export default FullBody;

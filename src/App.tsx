@@ -4,8 +4,10 @@ import './App.scss';
 import { DataView } from "primereact/dataview";
 import events from "./Components/Events";
 import { Container } from 'react-bootstrap';
-import { LunarBody } from './Components/Calendar';
+import { LunarBody, Style2 } from './Components/Calendar';
 import Header from './Components/Header';
+import { useAppSelector, useAppDispatch } from './redux/hooks';
+import { getView } from './redux/view/viewSlice';
 
 const colors : { [key: string]: any }  = {
     twitter: {
@@ -78,6 +80,8 @@ function App() {
         setDisplay(type);
     }
     
+    const pageView = useAppSelector(getView);
+
   return (
       <>
           
@@ -94,7 +98,8 @@ function App() {
               )}
 
               {display === "calendar" && (
-                  <LunarBody />
+                //   <LunarBody />
+                  <Style2 />
               )}
           </Container>
 

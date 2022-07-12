@@ -1,11 +1,14 @@
 import React from 'react';
 import { Menubar } from "primereact/menubar";
+import { useAppDispatch } from '../redux/hooks';
+import { setView } from '../redux/view/viewSlice';
 
 type HeaderProps = {
     fireHeaderBtn: (type:string)=>{}
   }
 
 function Header(props : HeaderProps){
+    const dispatch = useAppDispatch();
     const {fireHeaderBtn} = props;
     const navBar = [
         {
@@ -20,6 +23,14 @@ function Header(props : HeaderProps){
             icon: "pi pi-fw pi-calendar",
             command: () => {
                 fireHeaderBtn("calendar");
+            },
+        },
+        {
+            label: "Year",
+            icon: "pi pi-fw pi-calendar",
+            command: () => {
+                dispatch(setView("year-view"));
+                //fireHeaderBtn("year-view");
             },
         },
         {
