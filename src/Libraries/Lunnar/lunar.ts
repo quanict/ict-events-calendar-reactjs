@@ -239,7 +239,7 @@ export namespace Lunar {
             const ret = [];
         
             for (let i = 0; i < 12; i++) {
-                if (gioHD.charAt(i) == '1') {
+                if (gioHD.charAt(i) === '1') {
                 let timeName = CHI[i];
                 let timeBegin = (i*2+23)%24;
                 let timeEnd = (i*2+1)%24;
@@ -248,6 +248,16 @@ export namespace Lunar {
                 }
             }
             return ret;
+        }
+
+        get month_name() {
+          const canChi = this.getCanChi();
+          return canChi[1];
+        }
+
+        get day_name() {
+          const canChi = this.getCanChi();
+          return canChi[0];
         }
         
         get tiet_khi(){

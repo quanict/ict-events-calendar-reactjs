@@ -8,6 +8,7 @@ import { LunarBody, Style2 } from './Components/Calendar';
 import Header from './Components/Header';
 import { useAppSelector, useAppDispatch } from './redux/hooks';
 import { getView } from './redux/view/viewSlice';
+import SizeBig from './Components/Calendar/SizeBig';
 
 const colors : { [key: string]: any }  = {
     twitter: {
@@ -99,7 +100,8 @@ function App() {
 
               {display === "calendar" && (
                 //   <LunarBody />
-                  <Style2 />
+                //   <Style2 />
+                <SizeBig />
               )}
           </Container>
 
