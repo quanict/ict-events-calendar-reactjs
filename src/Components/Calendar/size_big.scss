@@ -1,0 +1,33 @@
+.lunar-calendar-size-big {
+
+    font-size: 13px;
+    .fsize-20 {
+        font-size: 20em;
+        font-weight: bold;
+    }
+
+    .fsize-5 {
+        font-size: 5em;
+    }
+
+    .fsize-3 {
+        font-size: 3em;
+    }
+
+    .fsize-1_5{
+        font-size: 1.5em;
+    }
+
+
+    .lunar-date {
+        .day {font-size: 5em; font-weight: bold;}
+    }
+
+    .solar-date {
+        .week { font-size: 2em; font-weight: bold;}
+    }
+}
+
+.f-davida {
+    font-family: utm-davida;
+}

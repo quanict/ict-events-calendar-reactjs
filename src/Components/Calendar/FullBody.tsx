@@ -15,7 +15,9 @@ import {
 } from '../../redux/date/dateSlice';
 
 import customViewPlugin from '../CalendarPlugin/CustomView';
-import LunarDateTime from '../../Libraries/Lunnar/LunarDateTime';
+import lunar from '../../Libraries/Lunnar/lunar';
+
+//import LunarDateTime from '../../Libraries/Lunnar/LunarDateTime';
 //import events from "../Events";
 
 type FullBodyProps = {
@@ -69,7 +71,7 @@ function FullBody(props:FullBodyProps){
         }
         
                
-        let lunarDate = new LunarDateTime(info.date);
+        let lunarDate = lunar(info.date);
         const lunarElm = document.createElement('div');
         lunarElm.className = "fc-daygrid-day-lunnar";
         lunarElm.textContent = lunarDate.format("d/m");

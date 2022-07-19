@@ -1,17 +1,87 @@
 
-export const CAN = new Array("Giáp", "Ất", "Bính", "Đinh", "M\u1EADu", "K\u1EF7", "Canh", "Tân", "Nhâm", "Quý");
-export const CHI = new Array("Tý", "S\u1EEDu", "D\u1EA7n", "Mão", "Thìn", "T\u1EF5", "Ng\u1ECD", "Mùi", "Thân", "D\u1EADu", "Tu\u1EA5t", "H\u1EE3i");
-export const TUAN = new Array("Ch\u1EE7 nh\u1EADt", "Th\u1EE9 hai", "Th\u1EE9 ba", "Th\u1EE9 t\u01B0", "Th\u1EE9 n\u0103m", "Th\u1EE9 sáu", "Th\u1EE9 b\u1EA3y");
-export const GIO_HD = new Array("110100101100", "001101001011", "110011010010", "101100110100", "001011001101", "010010110011");
+export const CAN = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
+export const CHI = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
+export const TUAN = ["Ch\u1EE7 nh\u1EADt", "Th\u1EE9 hai", "Th\u1EE9 ba", "Th\u1EE9 t\u01B0", "Th\u1EE9 n\u0103m", "Th\u1EE9 sáu", "Th\u1EE9 b\u1EA3y"];
+export const GIO_HD = ["110100101100", "001101001011", "110011010010", "101100110100", "001011001101", "010010110011"];
+export const DAY_OF_WEEK = ['chủ nhật', 'thứ hai', 'thứ ba', 'thứ tư', 'thứ năm', 'thứ sáu', 'thứ 7'];
+export const NGU_HANH = ["Kim", "Thủy", "Hỏa", "Thổ", "Mộc"];
 
-export const TIETKHI = new Array(
+type MenhValue = {
+    name: string;
+    value: string;
+};
+export const MENH: MenhValue[] = [];
+
+MENH.push({ name: 'Giáp Tý',	value: "Hải Trung Kim" });
+MENH.push({ name: 'Ất Sửu',     value: "Hải Trung Kim" });
+MENH.push({ name: 'Bính Dần',	value: "Lư Trung Hỏa" });
+MENH.push({ name: 'Đinh Mão',	value: "Lư Trung Hỏa" });
+MENH.push({ name: 'Mậu Thìn',	value: "Đại Lâm Mộc" });
+MENH.push({ name: 'Kỷ Tỵ',		value: "Đại Lâm Mộc" });
+MENH.push({ name: 'Canh Ngọ',	value: "Lộ Bàng Thổ" });
+MENH.push({ name: 'Tân Mùi',	value: "Lộ Bàng Thổ" });
+MENH.push({ name: 'Nhâm Thân',	value: "Kiếm Phong Kim"});
+MENH.push({ name: 'Quý Dậu',	value: "Kiếm Phong Kim"});
+MENH.push({ name: 'Giáp Tuất',	value: "Sơn Đầu Hỏa"});
+MENH.push({ name: 'Ất Hợi',     value: "Sơn Đầu Hỏa"});
+MENH.push({ name: 'Bính Tý',	value: "Giảm Hạ Thủy"});
+MENH.push({ name: 'Đinh Sửu',	value: "Giảm Hạ Thủy"});
+MENH.push({ name: 'Mậu Dần',	value: "Thành Đầu Thổ"});
+MENH.push({ name: 'Kỷ Mão',     value: "Thành Đầu Thổ"});
+MENH.push({ name: 'Canh Thìn',	value: "Bạch Lạp Kim"});
+MENH.push({ name: 'Tân Tỵ',     value: "Bạch Lạp Kim"});
+MENH.push({ name: 'Nhâm Ngọ',   value: "Dương Liễu Mộc"});
+MENH.push({ name: 'Quý Mùi',    value: "Dương Liễu Mộc"});
+MENH.push({ name: 'Giáp Thân',  value: "Tuyền Trung Thủy"});
+MENH.push({ name: 'Ất Dậu',     value: "Tuyền Trung Thủy"});
+MENH.push({ name: 'Bính Tuất',  value: "Ốc Thượng Thổ"});
+MENH.push({ name: 'Đinh Hợi',   value: "Ốc Thượng Thổ"});
+MENH.push({ name: 'Mậu Tý',     value: "Thích Lịch Hỏa"});
+MENH.push({ name: 'Kỷ Sửu',     value: "Thích Lịch Hỏa"});
+MENH.push({ name: 'Canh Dần',	value: "Tùng Bách Mộc"});
+MENH.push({ name: 'Tân Mão',	value: "Tùng Bách Mộc"}); 	//2011
+MENH.push({ name: 'Nhâm Thìn',	value: "Trường Lưu Thủy"});
+MENH.push({ name: 'Quý Tỵ',     value: "Trường Lưu Thủy"});
+MENH.push({ name: 'Giáp Ngọ',	value: "Sa Trung Kim"});
+MENH.push({ name: 'Ất Mùi',     value: "Sa Trung Kim"});
+MENH.push({ name: 'Bính Thân',	value: "Sơn Hạ Hỏa"});
+MENH.push({ name: 'Đinh Dậu',	value: "Sơn Hạ Hỏa"});
+MENH.push({ name: 'Mậu Tuất',	value: "Bình Địa Mộc"});
+MENH.push({ name: 'Kỷ Hợi',     value: "Bình Địa Mộc"});
+MENH.push({ name: 'Canh Tý',	value: "Bích Thượng Thổ"});
+MENH.push({ name: 'Tân Sửu',	value: "Bích Thượng Thổ"});
+MENH.push({ name: 'Nhâm Dần',	value: "Kim Bạch Kim"});	//2022
+MENH.push({ name: 'Quý Mão',    value: "Kim Bạch Kim"});	//2023
+MENH.push({ name: 'Giáp Thìn',  value: "Phú Đăng Hoả"});
+MENH.push({ name: 'Ất Tỵ',		value: "Phú Đăng Hoả"});	//2025
+MENH.push({ name: 'Bính Ngọ',	value: "Thiên Hà Thủy"});
+MENH.push({ name: 'Đinh Mùi',	value: "Thiên Hà Thủy"});
+MENH.push({ name: 'Mậu Thân',	value: "Đại Trạch Thổ"});
+MENH.push({ name: 'Kỷ Dậu',		value: "Đại Trạch Thổ"});
+MENH.push({ name: 'Canh Tuất',	value: "Thoa Xuyến Kim"});
+MENH.push({ name: 'Tân Hợi',	value: "Thoa Xuyến Kim"});
+MENH.push({ name: 'Nhâm Tý',	value: "Tang Đố Mộc"});
+MENH.push({ name: 'Quý Sửu',	value: "Tang Đố Mộc"});
+MENH.push({ name: 'Giáp Dần',	value: "Đại Khe Thủy"});
+MENH.push({ name: 'Ất Mão',		value: "Đại Khe Thủy"});
+MENH.push({ name: 'Bính Thìn',	value: "Sa Trung Thổ"});
+MENH.push({ name: 'Đinh Tỵ',	value: "Sa Trung Thổ"});
+MENH.push({ name: 'Mậu Ngọ',	value: "Thiên Thượng Hỏa"});
+MENH.push({ name: 'Kỷ Mùi',		value: "Thiên Thượng Hỏa"});
+MENH.push({ name: 'Canh Thân',	value: "Thạch Lựu Mộc"});
+MENH.push({ name: 'Tân Dậu',	value: "Thạch Lựu Mộc"});
+MENH.push({ name: 'Nhâm Tuất',	value: "Đại Hải Thủy"});
+MENH.push({ name: 'Quý Hợi',	value: "Đại Hải Thủy"});
+
+
+export const TIETKHI = [
   "Xu\u00E2n ph\u00E2n", "Thanh minh", "C\u1ED1c v\u0169", "L\u1EADp h\u1EA1", "Ti\u1EC3u m\u00E3n", "Mang ch\u1EE7ng",
 	"H\u1EA1 ch\u00ED", "Ti\u1EC3u th\u1EED", "\u0110\u1EA1i th\u1EED", "L\u1EADp thu", "X\u1EED th\u1EED", "B\u1EA1ch l\u1ED9",
 	"Thu ph\u00E2n", "H\u00E0n l\u1ED9", "S\u01B0\u01A1ng gi\u00E1ng", "L\u1EADp \u0111\u00F4ng", "Ti\u1EC3u tuy\u1EBFt", "\u0110\u1EA1i tuy\u1EBFt",
 	"\u0110\u00F4ng ch\u00ED", "Ti\u1EC3u h\u00E0n", "\u0110\u1EA1i h\u00E0n", "L\u1EADp xu\u00E2n", "V\u0169 Th\u1EE7y", "Kinh tr\u1EADp" 
-);
+];
 
-export const TK19 = new Array(
+export const TK19 = [
 	0x30baa3, 0x56ab50, 0x422ba0, 0x2cab61, 0x52a370, 0x3c51e8, 0x60d160, 0x4ae4b0, 0x376926, 0x58daa0,
 	0x445b50, 0x3116d2, 0x562ae0, 0x3ea2e0, 0x28e2d2, 0x4ec950, 0x38d556, 0x5cb520, 0x46b690, 0x325da4,
 	0x5855d0, 0x4225d0, 0x2ca5b3, 0x52a2b0, 0x3da8b7, 0x60a950, 0x4ab4a0, 0x35b2a5, 0x5aad50, 0x4455b0,
@@ -22,7 +92,7 @@ export const TK19 = new Array(
 	0x3cea6a, 0x62da90, 0x4e5ad0, 0x392ad6, 0x5e2ae0, 0x4892e0, 0x32cad5, 0x56c950, 0x40d4a0, 0x2bd4a3,
 	0x50b690, 0x3a57a7, 0x6055b0, 0x4c25d0, 0x3695b5, 0x5a92b0, 0x44a950, 0x2ed954, 0x54b4a0, 0x3cb550,
 	0x286b52, 0x4e55b0, 0x3a2776, 0x5e2570, 0x4852b0, 0x32aaa5, 0x56e950, 0x406aa0, 0x2abaa3, 0x50ab50
-); /* Years 2000-2099 */
+]; /* Years 2000-2099 */
 
 export const TK20 = new Array(
 	0x3c4bd8, 0x624ae0, 0x4ca570, 0x3854d5, 0x5cd260, 0x44d950, 0x315554, 0x5656a0, 0x409ad0, 0x2a55d2,

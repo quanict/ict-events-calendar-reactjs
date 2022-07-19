@@ -91,9 +91,4 @@ export function toInt(d:number) {
 // 	return CAN[(year+6) % 10] + " " + CHI[(year+8) % 12];
 // }
 
-// /*
-//  * Can cua gio Chinh Ty (00:00) cua ngay voi JDN nay
-//  */
-// function getCanHour0(jdn:number) {
-// 	return CAN[(jdn-1)*2 % 10];
-// }
+

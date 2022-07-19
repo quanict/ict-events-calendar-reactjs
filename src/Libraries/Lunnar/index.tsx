@@ -9,7 +9,7 @@
  * https://vi.wikipedia.org/wiki/Can_Chi
  */
 
-import LunarDateTime from "./LunarDateTime";
+//import LunarDateTime from "./LunarDateTime";
 //import Lunar from "./lunar";
 
 const lunar = function(){
@@ -18,25 +18,15 @@ const lunar = function(){
 
 export default lunar;
 
-interface fromLunar {
-    (day : number, month: number): number;
-    (day : number, month: number, year: number): number;
-}
+// interface fromLunar {
+//     (day : number, month: number): number;
+//     (day : number, month: number, year: number): number;
+// }
 
 // let orderFn: lunar = function (cId, mId) {
 //     // processing the order
 //     return true // processed successfully!
 // }
-
-export const fromLunar = (day : number, month: number, year?: number) => {
-    const lunarObject = new LunarDateTime();
-    lunarObject.importFromLunar(day, month, year);
-    return lunarObject;
-}
-
-export const fromDate = (date: Date) => {
-    return new LunarDateTime(date);
-}
 
 
 // const lunarfn : typeof lunar = (day:number, month:number, year:number) => {

@@ -49,3 +49,15 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Relation documents
 
 [FullCalendar events](https://fullcalendar.io/docs/date-clicking-selecting)
+
+[Can Chi](https://vi.wikipedia.org/wiki/Can_Chi)
+[tiet khi](https://vi.wikipedia.org/wiki/Ti%E1%BA%BFt_kh%C3%AD)
+[cung menh theo ngu hanh](https://phongthuyso.vn/cach-tinh-cung-menh.html)
+
+http://www.informatik.uni-leipzig.de/~duc/amlich/
+https://www.informatik.uni-leipzig.de/~duc/amlich/JavaScript/?yy=2022&mm=7
+
+https://phongthuyvuong.com/kien-thuc/cach-tinh-nam-thang-ngay-gio-theo-can-chi
+https://thienmochuong.com/cung-menh-la-gi-cach-xem-menh-ngu-hanh-cach-tinh-menh-theo-ngu-hanh
+https://phongthuyso.vn/cach-tinh-cung-menh.html
+https://xemboituvi.vn/lich-am-duong

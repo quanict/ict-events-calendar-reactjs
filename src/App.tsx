@@ -6,9 +6,12 @@ import events from "./Components/Events";
 import { Container } from 'react-bootstrap';
 import { LunarBody, Style2 } from './Components/Calendar';
 import Header from './Components/Header';
-import { useAppSelector, useAppDispatch } from './redux/hooks';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { getView } from './redux/view/viewSlice';
 import SizeBig from './Components/Calendar/SizeBig';
+import {useLocation} from "react-router-dom";
+import moment from 'moment';
+import { setDate } from './redux/date/dateSlice';
 
 const colors : { [key: string]: any }  = {
     twitter: {
@@ -26,7 +29,15 @@ const colors : { [key: string]: any }  = {
 };
 
 function App() {
+    const dispatch = useAppDispatch();
     const [display, setDisplay] = useState("calendar");
+
+    const search = useLocation().search;
+    let date:any = new URLSearchParams(search).get('date');
+    if( date ){
+        dispatch(setDate(moment(date).toString()));
+    }
+    console.log(`manual date`,{date})
 
     const renderListItem = (data:any) => {
         console.log(`render list item`, {data})

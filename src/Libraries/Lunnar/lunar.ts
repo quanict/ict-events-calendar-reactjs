@@ -1,11 +1,12 @@
 //import LunarDate from "./LunarDate";
 import moment, { Moment } from "moment";
 import {TK19, TK20, TK21, TK22, PiNumber} from "./Constants";
-import {CAN, GIO_HD, CHI, TIETKHI} from "./Constants";
+import {CAN, GIO_HD, CHI, TIETKHI, DAY_OF_WEEK} from "./Constants";
+import cung_menh_ngu_hanh_ngay from "./CungMenhNguHanh";
 
 export namespace Lunar {
     
-    class LunarData {
+    export class LunarData {
         day: number;
         month: number;
         year: number;
@@ -47,7 +48,7 @@ export namespace Lunar {
       
     class LunarCalc implements LunarCalculateActions {
         protected lunar: LunarData;  
-        
+
         constructor(...args: any[]) {
             this.lunar = new LunarData(1,1,1,0,2);
         }
@@ -139,7 +140,7 @@ export namespace Lunar {
               j >>= 1;
             }
             
-            if (leapMonth == 0) {
+            if (leapMonth === 0) {
               for(mm = 1; mm <= 12; mm++) {
                 ly.push(new LunarData(1, mm, yy, 0, currentJD));
                 currentJD += regularMonths[mm-1];
@@ -182,7 +183,7 @@ export namespace Lunar {
             var ly = this.getYearInfo(yyyy);
             var lm = ly[mm-1];
             
-            if (lm.month != mm) {
+            if (lm.month !== mm) {
               lm = ly[mm];
             }
             var ld = lm.jd + dd - 1;
@@ -201,69 +202,112 @@ export namespace Lunar {
         get tiet_khi(): string;
     }
 
-    export class CanChiCalc extends LunarCalc implements CanChiActions{
-        getCanchi(): [day: string, month: string, year: string] {
-            throw new Error("Method not implemented.");
-        }
-        
-        getCanChiYear(year:number=0) : string {
-            if( typeof year === 'undefined'){
-                year = this.lunar.year;
-            }
-            return CAN[(year+6) % 10] + " " + CHI[(year+8) % 12];
-        }
+    class CanChi implements CanChiActions{
+      protected lunar;
+      protected jdn: number;
 
-        getCanChi(lunar:any=null) {
-            if( !lunar){
-              lunar = this.lunar;
-            }
-            let dayName, monthName, yearName;
-            dayName = CAN[(lunar.jd + 9) % 10] + " " + CHI[(lunar.jd+1)%12];
-            monthName = CAN[(lunar.year*12+lunar.month+3) % 10] + " " + CHI[(lunar.month+1)%12];
-            if (lunar.leap == 1) {
-              monthName += " (nhuận)";
-            }
-            yearName = this.getCanChiYear();
-            return [dayName, monthName, yearName];
-        }
+      constructor(lunar: any, jdn: number) {
+        this.lunar = lunar;
+        this.jdn = jdn;
+      }
 
-        get year_name(){
-            const {year} = this.lunar;
-            return CAN[(year+6) % 10] + " " + CHI[(year+8) % 12];
-        }
+      getCanchi(): [day: string, month: string, year: string] {
+          throw new Error("Method not implemented.");
+      }
         
-        get gio_hoang_dao() {
-            const {jd} = this.lunar;
-            const chiOfDay = (jd+1) % 12;
-            const gioHD = GIO_HD[chiOfDay % 6]; // same values for Ty' (1) and Ngo. (6), for Suu and Mui etc.
-            const ret = [];
-        
-            for (let i = 0; i < 12; i++) {
-                if (gioHD.charAt(i) === '1') {
-                let timeName = CHI[i];
-                let timeBegin = (i*2+23)%24;
-                let timeEnd = (i*2+1)%24;
-        
-                ret.push(`${timeName} (${timeBegin}-${timeEnd}`);
-                }
-            }
-            return ret;
-        }
+      getCanChiYear(year:number=0) : string {
+          if( typeof year === 'undefined'){
+              year = this.lunar.year;
+          }
+          return CAN[(year+6) % 10] + " " + CHI[(year+8) % 12];
+      }
 
-        get month_name() {
-          const canChi = this.getCanChi();
-          return canChi[1];
-        }
+      getCanChi(lunar:any=null) {
+          if( !lunar){
+            lunar = this.lunar;
+          }
+          let dayName, monthName, yearName;
+          dayName = CAN[(lunar.jd + 9) % 10] + " " + CHI[(lunar.jd+1)%12];
+          monthName = CAN[(lunar.year*12+lunar.month+3) % 10] + " " + CHI[(lunar.month+1)%12];
+          if (lunar.leap === 1) {
+            monthName += " (nhuận)";
+          }
+          yearName = this.getCanChiYear();
+          return [dayName, monthName, yearName];
+      }
 
-        get day_name() {
-          const canChi = this.getCanChi();
-          return canChi[0];
+      /*
+       * Can cua gio Chinh Ty (00:00) cua ngay voi JDN nay
+       */
+      get can_hour_start() {
+        return CAN[(this.jdn-1)*2 % 10];
+      }
+
+      get year_name(){
+          const {year} = this.lunar;
+          return CAN[(year+6) % 10] + " " + CHI[(year+8) % 12];
+      }
+      
+      get gio_hoang_dao() {
+          const {jd} = this.lunar;
+          const chiOfDay = (jd+1) % 12;
+          const gioHD = GIO_HD[chiOfDay % 6]; // same values for Ty' (1) and Ngo. (6), for Suu and Mui etc.
+          const ret = [];
+      
+          for (let i = 0; i < 12; i++) {
+              if (gioHD.charAt(i) === '1') {
+              let timeName = CHI[i];
+              let timeBegin = (i*2+23)%24;
+              let timeEnd = (i*2+1)%24;
+      
+              ret.push(`${timeName} (${timeBegin}-${timeEnd}`);
+              }
+          }
+          return ret;
+      }
+
+      get month_name() {
+        const canChi = this.getCanChi();
+        return canChi[1];
+      }
+
+      get day_name() {
+        const canChi = this.getCanChi();
+        return canChi[0];
+      }
+      
+      get tiet_khi(){
+        const lunarCalc = new LunarCalc();
+          const sunLng = lunarCalc.getSunLongitude(this.lunar.jd+1, 7.0);
+          return `tiết khí ${TIETKHI[sunLng]}`;
+      }
+
+      get menh_ngay(){
+        return cung_menh_ngu_hanh_ngay(this.lunar).menh_ngay;
+      }
+
+      format(format?: string){
+        if( !format ){
+          format = "DDDD MMMM YYYY";
         }
-        
-        get tiet_khi(){
-            const sunLng = this.getSunLongitude(this.lunar.jd+1, 7.0);
-            return TIETKHI[sunLng];
-        }
+        let output = format.slice();
+
+        const CanChi = this.getCanChi();
+        const yearCanChi = CanChi[2];
+        const monthCanChi = CanChi[1];
+        const dayCanChi = CanChi[0];
+        const hourStart = `${this.can_hour_start} ${CHI[0]}`;
+
+        output = output.replaceAll('YYYY', `năm ${yearCanChi}`);
+        output = output.replaceAll('MMMM', `tháng ${monthCanChi}`);
+        output = output.replaceAll('DDDD', `ngày ${dayCanChi}`);
+        output = output.replaceAll('HHHH', `giờ ${hourStart}`);
+
+        output = output.replaceAll('MM', `tháng ${this.lunar.month} (${this.lunar.leap ? 'T': "Đ"})`);
+        output = output.replaceAll('YY', yearCanChi);
+
+        return output;
+      }
     }
 
     interface LunarDateActions {
@@ -274,9 +318,10 @@ export namespace Lunar {
         get moment(): Moment;
     }
 
-    export class LunarDate extends CanChiCalc implements LunarDateActions {
+    export class LunarDate extends LunarCalc implements LunarDateActions {
         protected date:any=null;
         protected solar: Date|null = null;
+        protected jd : number=0;
 
         constructor(...args: any[]) {
             super();
@@ -321,6 +366,7 @@ export namespace Lunar {
               ly = this.getYearInfo(yyyy - 1);
             }
         
+            this.jd = jd;
             this.lunar = this.findLunarDate(jd, ly);
         }
 
@@ -332,7 +378,7 @@ export namespace Lunar {
             this.lunarInitial();
         }
 
-        format(format?: string){
+        format(format?: string, type: string='lunar'){
             if( !format ){
               format = "DDDD MMMM YYYY";
             }
@@ -340,31 +386,35 @@ export namespace Lunar {
             if( this.lunar.day < 10){
               day = `0${day}`;
             }
-            let month = this.lunar.month.toString();
+            let month = type ==='lunnar' ? this.lunar.month.toString() : moment(this.solar).month()+1;
             if( this.lunar.month < 10){
               month = `0${month}`;
             }
       
             const dayInt = parseInt(day);
-            const monthInt = parseInt(month);
+            const monthInt = parseInt(`${month}`);
+            const dayOfWeek = DAY_OF_WEEK[this.moment.weekday()];
       
             let output = format.slice();
-            const CanChi = this.getCanChi();
-            const yearCanChi = CanChi[2];
-            const monthCanChi = CanChi[1];
-            const dayCanChi = CanChi[0];
+            // const CanChi = this.getCanChi();
+            // const yearCanChi = CanChi[2];
+            // const monthCanChi = CanChi[1];
+            // const dayCanChi = CanChi[0];
             
-            output = output.replaceAll('YYYY', yearCanChi);
-            output = output.replaceAll('MMMM', monthCanChi);
-            output = output.replaceAll('DDDD', dayCanChi);
+            // output = output.replaceAll('YYYY', yearCanChi);
+            // output = output.replaceAll('MMMM', monthCanChi);
+            // output = output.replaceAll('DDDD', dayCanChi);
       
-            output = output.replaceAll('YY', yearCanChi);
-            output = output.replaceAll('MM', month);
+            // output = output.replaceAll('YY', yearCanChi);
+
+            output = output.replaceAll('dddd', dayOfWeek);
+            output = output.replaceAll('MMMM', `tháng ${month}`);
+            
+            output = output.replaceAll('MM', `${month}`);
             output = output.replaceAll('DD', day);
       
             output = output.replaceAll('d', dayInt.toString());
             output = output.replaceAll('m', monthInt.toString());
-      
       
             return output;
         }
@@ -373,12 +423,15 @@ export namespace Lunar {
             return moment(this.solar);
         }
 
+        get can_chi() {
+          return new CanChi(this.lunar, this.jd);
+        }
+
     }
 }
 
 const lunar = function(...args: any[]){
     return new Lunar.LunarDate(...args);
 }
-//const lunar: (...args: any[]) => LunarDate
 
 export default lunar;
