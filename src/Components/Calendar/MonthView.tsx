@@ -19,38 +19,40 @@ function MonthView(props:MonthViewProps){
     const days = []
 
     let weekStartIndex = dayNames.indexOf(monthStart.format('ddd'));
-    if( weekStartIndex < 6){
-        
-        for (let i = 0; i < weekStartIndex; i--) {
-            days.push(
-                monthStart.clone().add(-i, 'days')
-            )
+    if( weekStartIndex <= 6){
+        for (let i = weekStartIndex; i > 0 ; i--) {
+            days.push({date:monthStart.clone().add(-i, 'days'), avaiable:false})
         }
     }
 
     for (let i = 0; i <= monthEnd.diff(monthStart, 'days'); i++) {
-        days.push(
-          //<div className='col-7-1 text-center' key={index} >{i+1}</div>
-          monthStart.clone().add(i, 'days')
-        )
+        days.push({date:monthStart.clone().add(i, 'days'), avaiable: true})
     }
 
     let weekEndIndex = dayNames.indexOf(monthEnd.format('ddd'));
     if( weekEndIndex < 6){
-        
         for (let i = weekEndIndex; i < 6; i++) {
-            days.push(
-                //<div className='col-7-1 text-center' key={index} >{i}</div>
-                monthEnd.clone().add(i, 'days')
-            )
+            days.push({date:monthEnd.clone().add(i, 'days'), avaiable:false})
         }
     }
 
-    console.log(`============`, {monthStart, monthEnd, weekStartIndex, weekEndIndex});
+    /**
+     * add more one week
+     */
+    if(days.length/7 <6){
+        const lastDate = days[days.length-1].date;
+        for (let i = 1; i <= 7; i++) {
+            days.push( {date:lastDate.clone().add(i, 'days'), avaiable:false} )
+        }
+    }
+
+    //console.log(`============`, {monthStart, monthEnd, weekStartIndex, weekEndIndex});
 
     return(
-        <Row>
-            {days.map((date, index) => <div className='col-7-1 text-center' key={index} >{date.format('D-M')}</div>)}
+        <Row className='m-full'>
+            <div className='col-12'><h4>{monthStart.format("MMMM")}</h4></div>
+            {dayNames.map((d, index) => <div className='mv-h' key={index} >{d}</div>)}
+            {days.map((date, index) => <div className={`mv-d ${!date.avaiable?'mv-dis':''}`} key={index} ><span className='w-75'>{date.date.format('D-M')}</span></div>)}
         </Row>
     );
 }
