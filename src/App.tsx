@@ -4,11 +4,10 @@ import './App.scss';
 import { DataView } from "primereact/dataview";
 import events from "./Components/Events";
 import { Container } from 'react-bootstrap';
-import { LunarBody, Style2 } from './Components/Calendar';
+import { LunarBody, Style2, DayView, YearView, MonthView } from './Components/Calendar';
 import Header from './Components/Header';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { getView } from './redux/view/viewSlice';
-import SizeBig from './Components/Calendar/SizeBig';
 import {useLocation} from "react-router-dom";
 import moment from 'moment';
 import { setDate } from './redux/date/dateSlice';
@@ -37,7 +36,6 @@ function App() {
     if( date ){
         dispatch(setDate(moment(date).toString()));
     }
-    console.log(`manual date`,{date})
 
     const renderListItem = (data:any) => {
         console.log(`render list item`, {data})
@@ -112,7 +110,7 @@ function App() {
               {display === "calendar" && (
                 //   <LunarBody />
                 //   <Style2 />
-                <SizeBig />
+                <MonthView />
               )}
           </Container>
 

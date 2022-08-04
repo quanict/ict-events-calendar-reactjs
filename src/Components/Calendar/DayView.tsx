@@ -6,7 +6,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { getLunarDate } from '../../redux/date/dateSlice';
 import "./size_big.scss";
 
-function SizeBig(){
+function DayView(){
     const date = useAppSelector(getLunarDate);
     const monday = date.moment.day(1);
     const dayOfWeek=[0,1,2,3,4,5,6];
@@ -58,4 +58,4 @@ function SizeBig(){
 }
 
 
-export default SizeBig;
+export default DayView;
