@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 //import logo from './logo.svg';
 import './App.scss';
 import { DataView } from "primereact/dataview";
-import events from "./Components/Events";
 import { Container } from 'react-bootstrap';
 import { LunarBody, Style2, DayView, YearView, MonthView } from './Components/Calendar';
 import Header from './Components/Header';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { getView } from './redux/view/viewSlice';
-import {useLocation} from "react-router-dom";
 import moment from 'moment';
 import { setDate } from './redux/date/dateSlice';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    useParams,
+    useLocation
+  } from "react-router-dom";
 
 const colors : { [key: string]: any }  = {
     twitter: {
@@ -93,13 +98,15 @@ function App() {
     const pageView = useAppSelector(getView);
 
   return (
-      <>
+    <>
           
           <Header  fireHeaderBtn={(type)=>headerBtnClickHandler} />
           <Container >
+       
+
             {display !== "calendar" && (
                   <DataView
-                      value={events.filter((item:any) => new Date(item.start) > new Date())}
+                      //value={events.filter((item:any) => new Date(item.start) > new Date())}
                       layout={display}
                       itemTemplate={display === "list" ? renderListItem : renderGridItem}
                       paginator
@@ -110,11 +117,17 @@ function App() {
               {display === "calendar" && (
                 //   <LunarBody />
                 //   <Style2 />
-                <MonthView />
+                <YearView />
               )}
+
+                <Route path="/" children={<YearView />} />
+
+                <Route path="/year" children={<YearView />} />
+                <Route path="/month" children={<MonthView />} />
+                <Route path="/day" children={<DataView />} />
           </Container>
 
-      </>
+          </>
   );
 }
 

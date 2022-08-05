@@ -19,18 +19,20 @@ function Header(props : HeaderProps){
           },
         },
         {
-            label: "Calendar",
+            label: "Month",
             icon: "pi pi-fw pi-calendar",
             command: () => {
-                fireHeaderBtn("calendar");
+                //fireHeaderBtn("calendar");
+                window.location.href='/month'
             },
         },
         {
             label: "Year",
             icon: "pi pi-fw pi-calendar",
             command: () => {
-                dispatch(setView("year-view"));
+                //dispatch(setView("year-view"));
                 //fireHeaderBtn("year-view");
+                window.location.href='/year'
             },
         },
         {

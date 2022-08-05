@@ -74,9 +74,30 @@ $grey-color: grey;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+
       &:hover {
         background-color: $base-color;
       }
+
+      .mv-lunar {
+        position: absolute;
+        top: 15px;
+        right: 10px;
+        font-size: 0.7em;
+        color: $grey-color;
+      }
+
+      .mv-event {
+        width: 10px;
+        height: 10px;
+        background-color: #61dafb;
+        border-radius: 50%;
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
+      }
+
     }
 
     &.mv-dis {

@@ -1,5 +1,5 @@
 //import LunarDate from "./LunarDate";
-import moment, { Moment } from "moment";
+import moment, { isMoment, Moment } from "moment";
 import {TK19, TK20, TK21, TK22, PiNumber} from "./Constants";
 import {CAN, GIO_HD, CHI, TIETKHI, DAY_OF_WEEK} from "./Constants";
 import cung_menh_ngu_hanh_ngay from "./CungMenhNguHanh";
@@ -180,6 +180,9 @@ export namespace Lunar {
               return new Date();
             }
       
+            if( mm < 1){
+              mm = 1;
+            }
             var ly = this.getYearInfo(yyyy);
             var lm = ly[mm-1];
             
@@ -335,6 +338,12 @@ export namespace Lunar {
                 this.solarInitial();
                 return;
             }
+
+            if( isMoment(args[0]) ){
+              this.date = args[0].toDate();
+              this.solarInitial();
+              return;
+          }
         }
 
         solarInitial(){
@@ -360,6 +369,8 @@ export namespace Lunar {
             if (yyyy < 1800 || 2199 < yyyy) {
               //return new LunarDate(0, 0, 0, 0, 0);
             }
+            const {solar} = this;
+            
             ly = this.getYearInfo(yyyy);
             jd = this.jdn(dd, mm, yyyy);
             if (jd < ly[0].jd) {
@@ -372,13 +383,16 @@ export namespace Lunar {
 
         importFromLunar(day : number, month: number, year?: number){
             year = year ? year : (new Date()).getFullYear();
-            day--;
-            month--;
-            this.solar = this.getSolarDate(day, month, year);
+            //day--;
+            //month--;
+            this.solar = this.getSolarDate(day-1, month-1, year);
             this.lunarInitial();
         }
 
-        format(format?: string, type: string='lunar'){
+        format(format?: string, type?: string){
+          if( !type){
+            type = "lunar";
+          }
             if( !format ){
               format = "DDDD MMMM YYYY";
             }
@@ -386,7 +400,8 @@ export namespace Lunar {
             if( this.lunar.day < 10){
               day = `0${day}`;
             }
-            let month = type ==='lunnar' ? this.lunar.month.toString() : moment(this.solar).month()+1;
+            let month = (type ==='lunar') ? (this.lunar.month).toString() : moment(this.solar).month()+1;
+            
             if( this.lunar.month < 10){
               month = `0${month}`;
             }
@@ -413,8 +428,16 @@ export namespace Lunar {
             output = output.replaceAll('MM', `${month}`);
             output = output.replaceAll('DD', day);
       
-            output = output.replaceAll('d', dayInt.toString());
-            output = output.replaceAll('m', monthInt.toString());
+            output = output.replaceAll('D', dayInt.toString());
+            output = output.replaceAll('M', monthInt.toString());
+
+            let monthView = dayInt.toString();
+            if( dayInt === 1){
+              monthView = dayInt.toString()+"/"+monthInt.toString();
+            }
+
+            output = output.replaceAll('month-view', monthView);
+            
       
             return output;
         }
