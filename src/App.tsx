@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 //import logo from './logo.svg';
 import './App.scss';
 import { DataView } from "primereact/dataview";
@@ -12,11 +12,11 @@ import { setDate } from './redux/date/dateSlice';
 import {
     BrowserRouter as Router,
     Route,
+    Routes,
     Link,
     useParams,
     useLocation
   } from "react-router-dom";
-
 const colors : { [key: string]: any }  = {
     twitter: {
         background: "blue",
@@ -36,11 +36,11 @@ function App() {
     const dispatch = useAppDispatch();
     const [display, setDisplay] = useState("calendar");
 
-    const search = useLocation().search;
-    let date:any = new URLSearchParams(search).get('date');
-    if( date ){
-        dispatch(setDate(moment(date).toString()));
-    }
+    // const search = useLocation().search;
+    // let date:any = new URLSearchParams(search).get('date');
+    // if( date ){
+    //     dispatch(setDate(moment(date).toString()));
+    // }
 
     const renderListItem = (data:any) => {
         console.log(`render list item`, {data})
@@ -95,11 +95,10 @@ function App() {
         setDisplay(type);
     }
     
-    const pageView = useAppSelector(getView);
+    //const pageView = useAppSelector(getView);
 
   return (
     <>
-          
           <Header  fireHeaderBtn={(type)=>headerBtnClickHandler} />
           <Container >
        
@@ -114,19 +113,17 @@ function App() {
                   />
               )}
 
-              {display === "calendar" && (
-                //   <LunarBody />
-                //   <Style2 />
-                <YearView />
-              )}
-
-                <Route path="/" children={<YearView />} />
-
-                <Route path="/year" children={<YearView />} />
-                <Route path="/month" children={<MonthView />} />
-                <Route path="/day" children={<DataView />} />
+              
+<Routes>
+                <Route path="/" element={<YearView />} />
+                <Route path="/year" element={<YearView />} />
+                <Route path="/month" element={<MonthView />} />
+                <Route path="/month/:month" element={<MonthView />} />
+                {/* } />
+                
+                <Route path="/day" children={<DataView />} /> */}
+                </Routes>
           </Container>
-
           </>
   );
 }

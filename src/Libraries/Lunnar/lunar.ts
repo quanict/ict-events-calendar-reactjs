@@ -95,6 +95,7 @@ export namespace Lunar {
             D = Math.floor( 365.25*C );
             E = Math.floor( (B-D)/30.6001 );
             dd = Math.floor(B - D - Math.floor(30.6001*E));
+
             if (E < 14) {
               mm = E - 1;
             } else {
@@ -105,7 +106,7 @@ export namespace Lunar {
             } else {
               yyyy = C - 4716;
             }
-            return [dd, mm, yyyy];
+            return [dd, mm, yyyy, jd];
         }
 
         findLunarDate(jd:number, ly: any) {
@@ -180,18 +181,50 @@ export namespace Lunar {
               return new Date();
             }
       
-            if( mm < 1){
-              mm = 1;
-            }
+            // if( mm < 1){
+            //   mm = 1;
+            // }
+
             var ly = this.getYearInfo(yyyy);
             var lm = ly[mm-1];
             
             if (lm.month !== mm) {
               lm = ly[mm];
             }
-            var ld = lm.jd + dd - 1;
-            const sd = this.jdn2date(ld);
-            return new Date(sd[2], sd[1], sd[0]);
+
+            var lDay = lm.jd + dd - 1;
+            let solarDate = this.jdn2date(lDay);
+            
+            this.lunar = this.getLunarDate(solarDate[0], solarDate[1], solarDate[2]);
+
+            if (this.lunar.day !== dd && dd === 30) {
+              solarDate = this.jdn2date(this.lunar.jd-1);
+              this.lunar = this.getLunarDate(solarDate[0], solarDate[1], solarDate[2]);
+            }
+
+            return new Date(solarDate[2], solarDate[1]-1, solarDate[0]);
+        }
+
+        getLunarDate(dd:number, mm:number, yyyy :any):LunarData {
+          var ly, jd;
+          if (yyyy < 1200 || 2199 < yyyy) {
+            return new LunarData(0, 0, 0, 0, 0);
+          }
+          ly = this.getYearInfo(yyyy);
+          jd = this.jdn(dd, mm, yyyy);
+          if (jd < ly[0].jd) {
+            ly = this.getYearInfo(yyyy - 1);
+          }
+          return this.findLunarDate(jd, ly);
+        }
+
+        convertLunarToSolar(dd:number, mm:number, year?:number){
+          year = year ? year : (new Date()).getFullYear();
+          const lunarData : LunarData = this.getLunarDate(dd, mm, year);
+          
+          console.log(`==== convert to solar [${dd}-${mm}]`, {lunarData});
+          //return new Date();
+          return new Date(lunarData.year, lunarData.month-1, lunarData.day-1);
         }
     }
 
@@ -369,7 +402,6 @@ export namespace Lunar {
             if (yyyy < 1800 || 2199 < yyyy) {
               //return new LunarDate(0, 0, 0, 0, 0);
             }
-            const {solar} = this;
             
             ly = this.getYearInfo(yyyy);
             jd = this.jdn(dd, mm, yyyy);
@@ -383,10 +415,14 @@ export namespace Lunar {
 
         importFromLunar(day : number, month: number, year?: number){
             year = year ? year : (new Date()).getFullYear();
-            //day--;
-            //month--;
-            this.solar = this.getSolarDate(day-1, month-1, year);
-            this.lunarInitial();
+            this.solar = this.getSolarDate(day, month, year);
+            this.lunar = this.getLunarDate( this.solar.getDate(), this.solar.getMonth(), this.solar.getFullYear());
+            if( this.lunar.day !== day){
+              this.lunar.day ++;
+            }
+            if( this.lunar.month !== month){
+              this.lunar.month ++;
+            }
         }
 
         format(format?: string, type?: string){
@@ -411,16 +447,6 @@ export namespace Lunar {
             const dayOfWeek = DAY_OF_WEEK[this.moment.weekday()];
       
             let output = format.slice();
-            // const CanChi = this.getCanChi();
-            // const yearCanChi = CanChi[2];
-            // const monthCanChi = CanChi[1];
-            // const dayCanChi = CanChi[0];
-            
-            // output = output.replaceAll('YYYY', yearCanChi);
-            // output = output.replaceAll('MMMM', monthCanChi);
-            // output = output.replaceAll('DDDD', dayCanChi);
-      
-            // output = output.replaceAll('YY', yearCanChi);
 
             output = output.replaceAll('dddd', dayOfWeek);
             output = output.replaceAll('MMMM', `tháng ${month}`);
