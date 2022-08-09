@@ -8,16 +8,15 @@ type HeaderProps = {
   }
 
 function Header(props : HeaderProps){
-    const dispatch = useAppDispatch();
     const {fireHeaderBtn} = props;
     const navBar = [
-        {
-          label: "Grid",
-          icon: "pi pi-fw pi-th-large",
-          command: () => {
-            fireHeaderBtn("grid");
-          },
-        },
+        // {
+        //   label: "Grid",
+        //   icon: "pi pi-fw pi-th-large",
+        //   command: () => {
+        //     fireHeaderBtn("grid");
+        //   },
+        // },
         {
             label: "Month",
             icon: "pi pi-fw pi-calendar",
@@ -35,13 +34,13 @@ function Header(props : HeaderProps){
                 window.location.href='/year'
             },
         },
-        {
-            label: "List",
-            icon: "pi pi-fw pi-list",
-            command: () => {
-                fireHeaderBtn("list");
-            },
-        },
+        // {
+        //     label: "List",
+        //     icon: "pi pi-fw pi-list",
+        //     command: () => {
+        //         fireHeaderBtn("list");
+        //     },
+        // },
     ];
 
     return(<>
@@ -49,7 +48,7 @@ function Header(props : HeaderProps){
               <Menubar
                   model={navBar}
                   end={
-                      <a href="https://github.com/EddieHubCommunity/EventCalendar">
+                      <a href="//github.com/quanict/ict-events-calendar-reactjs">
                           <i className="pi pi-github" style={{ fontSize: "2em" }} />
                       </a>
                   }
