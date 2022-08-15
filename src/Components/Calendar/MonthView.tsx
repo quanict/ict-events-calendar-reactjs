@@ -82,14 +82,22 @@ function MonthView(props:MonthViewProps){
                         return true;
                     });
                 }
-                
-                return <div className={`mv-d ${!day.avaiable?'mv-dis':''}`} key={index} >
+                const className = ['mv-d'];
+                if( !day.avaiable ){
+                    className.push('mv-dis');
+                }
+                if( ['Su', 'Sa'].indexOf(day.date.moment.format('dd')) > -1 ){
+                    className.push('mv-weekend');
+                }
+
+                if( day.date.moment.isSame(moment(), 'day')){
+                    className.push('mv-today');
+                }
+                return <div className={className.join(' ')} key={index} >
                             <span className='w-75'>
                                 {day.date.moment.format('D')}
                                 <i className='mv-lunar'>{index===0? day.date.format('D/M') : day.date.format('month-view')}</i>
-                                {dayEvents.length > 0 && day.avaiable && 
-                                <i className='mv-event'></i>
-                                }
+                                {dayEvents.length > 0 && day.avaiable && <i className='mv-event'></i>}
                             </span>
                         </div>;
             })}

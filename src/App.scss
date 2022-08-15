@@ -49,7 +49,8 @@
 }
 
 $base-color: #ccbe88;
-$grey-color: grey;
+$grey-color: #808080;
+$grey2-color: #ebebeb;
 
 .row {
   .mv-h {
@@ -67,6 +68,19 @@ $grey-color: grey;
     display: flex;
     justify-content: center;
 
+    &.mv-weekend {
+      span { background-color: $grey2-color; }
+    }
+
+    &.mv-today {
+      border: 1px solid $grey-color;
+      background-color: $grey-color;
+      color: white;
+      .mv-lunar {
+        color: white;
+      }
+    }
+
     span {
       border-radius: 50%;
       aspect-ratio : 1 / 1;
@@ -79,6 +93,8 @@ $grey-color: grey;
       &:hover {
         background-color: $base-color;
       }
+
+      
 
       .mv-lunar {
         position: absolute;
@@ -98,6 +114,8 @@ $grey-color: grey;
         bottom: 5px;
       }
     }
+
+   
 
     &.mv-dis {
       span {
