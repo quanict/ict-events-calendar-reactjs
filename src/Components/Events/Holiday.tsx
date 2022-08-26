@@ -29,7 +29,8 @@ export const Holidays = [
 ];
 
 export let events = Holidays.map((event)=>{
-    const row: { title: string; lunar?: any; solar?: any, date?:any } = { ...event };
+    const row: { title: string; lunar?: any; solar?: any, date?:any, type?: string } = { ...event };
+    row.type = "holiday";
 
     const today = new Date();
     const year = today.getFullYear().toString();
@@ -42,7 +43,6 @@ export let events = Holidays.map((event)=>{
     }
 
     if( row.lunar ){
-   
         row.lunar = row.lunar.replace("YEAR", year).replace("MONTH", month);
         const date = moment(row.lunar);
         row.date = lunar(parseInt(date.format('D')), parseInt(date.format('M')));

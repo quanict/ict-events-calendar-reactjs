@@ -3,12 +3,14 @@ import React, { useState, Fragment } from 'react';
 import './App.scss';
 import { DataView } from "primereact/dataview";
 import { Container } from 'react-bootstrap';
-import { LunarBody, Style2, DayView, YearView, MonthView } from './Components/Calendar';
+import { LunarBody, DayView, YearView, MonthView } from './Components/Calendar';
 import Header from './Components/Header';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { getView } from './redux/view/viewSlice';
 import moment from 'moment';
 import { setDate } from './redux/date/dateSlice';
+import {} from './Utils/StringPrototype';
+
 import {
     BrowserRouter as Router,
     Route,
@@ -17,6 +19,7 @@ import {
     useParams,
     useLocation
   } from "react-router-dom";
+
 const colors : { [key: string]: any }  = {
     twitter: {
         background: "blue",
@@ -33,14 +36,8 @@ const colors : { [key: string]: any }  = {
 };
 
 function App() {
-    const dispatch = useAppDispatch();
     const [display, setDisplay] = useState("calendar");
 
-    // const search = useLocation().search;
-    // let date:any = new URLSearchParams(search).get('date');
-    // if( date ){
-    //     dispatch(setDate(moment(date).toString()));
-    // }
 
     const renderListItem = (data:any) => {
         console.log(`render list item`, {data})
@@ -95,36 +92,33 @@ function App() {
         setDisplay(type);
     }
     
-    //const pageView = useAppSelector(getView);
-
   return (
     <>
-          <Header  fireHeaderBtn={(type)=>headerBtnClickHandler} />
-          <Container >
-       
+        <Header  fireHeaderBtn={(type)=>headerBtnClickHandler} />
+        <Container >
+        {display !== "calendar" && (
+                <DataView
+                    //value={events.filter((item:any) => new Date(item.start) > new Date())}
+                    layout={display}
+                    itemTemplate={display === "list" ? renderListItem : renderGridItem}
+                    paginator
+                    rows={10}
+                />
+            )}
 
-            {display !== "calendar" && (
-                  <DataView
-                      //value={events.filter((item:any) => new Date(item.start) > new Date())}
-                      layout={display}
-                      itemTemplate={display === "list" ? renderListItem : renderGridItem}
-                      paginator
-                      rows={10}
-                  />
-              )}
-
-              
-<Routes>
-                <Route path="/" element={<YearView />} />
-                <Route path="/year" element={<YearView />} />
-                <Route path="/month" element={<MonthView />} />
-                <Route path="/month/:month" element={<MonthView />} />
-                {/* } />
-                
-                <Route path="/day" children={<DataView />} /> */}
-                </Routes>
-          </Container>
-          </>
+        <Routes>
+            <Route path="/" element={<YearView />} />
+            <Route path="/year" element={<YearView />} />
+            <Route path="/month" element={<MonthView />} />
+            <Route path="/month/:month" element={<MonthView />} />
+            <Route path="/date/" element={<DayView />} />
+            <Route path="/date/:date" element={<DayView />} />
+            {/* } />
+            
+            <Route path="/day" children={<DataView />} /> */}
+        </Routes>
+        </Container>
+    </>
   );
 }
 

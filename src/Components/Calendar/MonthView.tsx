@@ -1,7 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 import { Row } from 'react-bootstrap';
-import {events} from '../Events/Family';
+// import {events} from '../Events/Family';
+import events from '../Events/index';
 import lunar from '../../Libraries/Lunnar/lunar';
 import { useParams } from 'react-router';
 import { Link } from "react-router-dom";
@@ -13,6 +14,10 @@ type MonthViewProps = {
 }
 
 function MonthView(props:MonthViewProps){
+    const onDayClickHandler = function( date:any){
+        ;
+    }
+
     let date = props.date;
     let monthViewClass = props.className ?? 'm-full';
     let {month} = useParams();
@@ -43,7 +48,6 @@ function MonthView(props:MonthViewProps){
     let weekEndIndex = dayNames.indexOf(monthEnd.format('ddd'));
 
     if( weekEndIndex < 6){
-      
         for (let i = 1; i < 7-weekEndIndex; i++) {
             days.push({date: lunar(monthEnd.clone().add(i, 'days')), avaiable:false})
         }
@@ -57,12 +61,11 @@ function MonthView(props:MonthViewProps){
             days.push( {date: lunar(lastDate.moment.clone().add(i, 'days')), avaiable:false} )
         }
     }
-    
+
     return(
         <Row className={monthViewClass} >
             <div className='col-12'>
-            <Link to={`/month/${monthStart.format("YYYY-MM")}`} className="h4">{monthStart.format("MMMM")}</Link>
-                {/* <h4>{monthStart.format("MMMM")}</h4> */}
+            <Link to={monthStart.toMonthUri()} className="h4">{monthStart.format("MMMM")}</Link>
             </div>
             {dayNames.map((d, index) => <div className='mv-h' key={index} >{d}</div>)}
             {days.map((day , index) => {
@@ -71,7 +74,11 @@ function MonthView(props:MonthViewProps){
                     if( !event || !event.date ){
                         return false;
                     }
-                    return day.date.moment.diff(event.date.moment, 'days')===0
+                    if( moment.isMoment(event.date) ){
+                        return day.date.moment.diff(event.date, 'days')===0
+                    } else {
+                        return day.date.moment.diff(event.date.moment, 'days')===0
+                    }
                 });
 
                 if( dayEvents.length > 0 ){
@@ -82,10 +89,12 @@ function MonthView(props:MonthViewProps){
                         return true;
                     });
                 }
+
                 const className = ['mv-d'];
                 if( !day.avaiable ){
                     className.push('mv-dis');
                 }
+
                 if( ['Su', 'Sa'].indexOf(day.date.moment.format('dd')) > -1 ){
                     className.push('mv-weekend');
                 }
@@ -93,13 +102,20 @@ function MonthView(props:MonthViewProps){
                 if( day.date.moment.isSame(moment(), 'day')){
                     className.push('mv-today');
                 }
-                return <div className={className.join(' ')} key={index} >
-                            <span className='w-75'>
-                                {day.date.moment.format('D')}
-                                <i className='mv-lunar'>{index===0? day.date.format('D/M') : day.date.format('month-view')}</i>
-                                {dayEvents.length > 0 && day.avaiable && <i className='mv-event'></i>}
-                            </span>
-                        </div>;
+
+                const hasHoliday = dayEvents.filter((d)=> (d && typeof d.type !== 'undefined' && d.type=='holiday') );
+                if( hasHoliday.length > 0){
+                    className.push('mv-holiday');
+                }
+
+
+                return <div className={className.join(' ')} key={index} onClick={(e)=>{day.date.moment.format('YMMDD').redirectToDayRoute()}}>
+                    <span className='w-75'>
+                        {day.date.moment.format('D')}
+                        <i className='mv-lunar'>{index===0? day.date.format('D/M') : day.date.format('month-view')}</i>
+                        {dayEvents.length > 0 && day.avaiable && <i className='mv-event'></i>}
+                    </span>
+                </div>
             })}
         </Row>
     );

@@ -16,8 +16,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <BrowserRouter>
-  
-          <Fragment>
+    <Fragment>
       <Provider store={store}>
       <App />
     </Provider>

@@ -7,7 +7,11 @@
 .App {
     text-align: center;
 }
-  
+
+a.h4 {
+  text-decoration: none;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -51,6 +55,7 @@
 $base-color: #ccbe88;
 $grey-color: #808080;
 $grey2-color: #ebebeb;
+$pink-color: #FFDEDE;
 
 .row {
   .mv-h {
@@ -70,6 +75,10 @@ $grey2-color: #ebebeb;
 
     &.mv-weekend {
       span { background-color: $grey2-color; }
+    }
+
+    &.mv-holiday {
+      span { background-color: $pink-color; }
     }
 
     &.mv-today {

@@ -39,7 +39,7 @@ const Family = [
 ];
 
 export let events = Family.map((human)=>{
-    const row: { id: string; title: string; father?: string; lunar?: any; note?: string; alive?: boolean; date?: any } = { ...human };
+    const row: { id: string; title: string; father?: string; lunar?: any; note?: string; alive?: boolean; date?: any, type?: string } = { ...human };
     const today = new Date();
     const year = today.getFullYear().toString();
     let month = (today.getMonth() + 1).toString();
