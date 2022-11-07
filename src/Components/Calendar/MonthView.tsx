@@ -108,7 +108,6 @@ function MonthView(props:MonthViewProps){
                     className.push('mv-holiday');
                 }
 
-
                 return <div className={className.join(' ')} key={index} onClick={(e)=>{day.date.moment.format('YMMDD').redirectToDayRoute()}}>
                     <span className='w-75'>
                         {day.date.moment.format('D')}

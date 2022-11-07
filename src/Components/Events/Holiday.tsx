@@ -28,8 +28,12 @@ export const Holidays = [
     { solar:"YEAR-09-02", title: "Ngày Quốc khánh" },
 ];
 
-export let events = Holidays.map((event)=>{
-    const row: { title: string; lunar?: any; solar?: any, date?:any, type?: string } = { ...event };
+let events : Array<CalendarEvent> = [];
+
+
+Holidays.map((event)=>{
+    //const row: { title: string; lunar?: any; solar?: any, date?:any, type?: string } = { ...event };
+    let row : CalendarEvent = event as CalendarEvent;
     row.type = "holiday";
 
     const today = new Date();
@@ -39,17 +43,16 @@ export let events = Holidays.map((event)=>{
     if( row.solar ){
         row.solar = row.solar.replace("YEAR", year).replace("MONTH", month);
         row.date = moment(row.solar);
-        return row;
+        events.push(row); return true;
     }
 
     if( row.lunar ){
         row.lunar = row.lunar.replace("YEAR", year).replace("MONTH", month);
         const date = moment(row.lunar);
         row.date = lunar(parseInt(date.format('D')), parseInt(date.format('M')));
-        return row;
+        events.push(row); return true;
     }
-    
-    return false;
+    return true;
 });
 
-events = events.filter(d=>d!==false);
+export {events};

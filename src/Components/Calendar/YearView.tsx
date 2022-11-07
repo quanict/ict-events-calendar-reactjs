@@ -14,7 +14,7 @@ const YearView = () =>{
     const months = []
     for (let i = 0; i < 12; i++) {
         months.push(
-          <Col className='col-md-4 p-4' key={i + 1} ><MonthView date={moment(`${currentYear}-${i+1}-1`)} className='m-year'  /></Col>
+          <Col className='p-4' md={4} sm={12} key={i + 1} ><MonthView date={moment(`${currentYear}-${i+1}-1`)} className='m-year'  /></Col>
         )
     }
 

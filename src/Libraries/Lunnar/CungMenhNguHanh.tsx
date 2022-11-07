@@ -76,7 +76,7 @@ class CungMenhNguHanhNgay {
         const menh = NGU_HANH[nguHanhIndex];
 
         const menh_detail = MENH.find((n)=>n.name===`${thienCan} ${diaChi}`)?.value ?? 'empty';
-        console.log(`==== debug`, {thienCan,diaChi, nguHanhFromCan, nguHanhFromChi, nguHanhIndex, menh, menh_detail})
+        //console.log(`==== debug`, {thienCan,diaChi, nguHanhFromCan, nguHanhFromChi, nguHanhIndex, menh, menh_detail})
         return menh_detail;
         
     }

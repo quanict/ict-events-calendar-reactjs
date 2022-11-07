@@ -1,5 +1,4 @@
 .lunar-calendar-size-big {
-
     font-size: 13px;
     .fsize-20 {
         font-size: 20em;
@@ -26,8 +25,44 @@
     .solar-date {
         .week { font-size: 2em; font-weight: bold;}
     }
+
+    .solar-year {
+        text-align: right;
+    }
 }
 
 .f-davida {
     font-family: utm-davida;
+}
+
+@media (max-width: 576px) {
+    .lunar-calendar-size-big {
+        .fsize-20 {
+            font-size: 10em;
+        }
+
+        .fsize-5 {
+            font-size: 2em;
+        }
+
+        .solar-year, 
+        .solar-month,
+        .solar-day {
+            text-align: center;
+        }
+        
+    }
+    .row .d-xs-none {
+        display: none;
+    }
+
+    
+}
+
+@media (max-width: 576px) {
+    .lunar-calendar-size-big {
+        .fsize-5 {
+            font-size: 2em;
+        }
+    }
 }

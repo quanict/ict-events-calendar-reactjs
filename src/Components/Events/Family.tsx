@@ -38,8 +38,10 @@ const Family = [
     { id:"28", title: "Nguyễn Văn Đỏ", father: "10", alive: false },
 ];
 
-export let events = Family.map((human)=>{
-    const row: { id: string; title: string; father?: string; lunar?: any; note?: string; alive?: boolean; date?: any, type?: string } = { ...human };
+let events : Array<CalendarEvent> = [];
+
+Family.map((human)=>{
+    const row: CalendarEvent = human as CalendarEvent;
     const today = new Date();
     const year = today.getFullYear().toString();
     let month = (today.getMonth() + 1).toString();
@@ -47,11 +49,15 @@ export let events = Family.map((human)=>{
     if( !human.lunar ){
         return false;
     }
+    
     row.lunar = human.lunar.replace("YEAR", year).replace("MONTH", month);
     const date = moment(row.lunar);
     row.date = lunar(parseInt(date.format('D')), parseInt(date.format('M')));
-    return row;
+    row.eventName = `Dỗ cụ [${human.title}] (${human.lunar})`;
+    events.push(row);
+    return true;
 });
 
-events = events.filter(d=>d!==false);
+export {events};
+// events = events.filter(d=>d!==false);
 
