@@ -38,6 +38,10 @@ const Family = [
     { id:"28", title: "Nguyễn Văn Đỏ", father: "10", alive: false },
 ];
 
+Family.push({
+    id:"28", title: "Nguyễn Đình Liệu", father: "0", lunar: ("YEAR-11-07")},
+});
+
 let events : Array<CalendarEvent> = [];
 
 Family.map((human)=>{
