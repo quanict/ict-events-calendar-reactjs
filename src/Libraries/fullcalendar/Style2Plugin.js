@@ -6,13 +6,13 @@ Docs & License: https://fullcalendar.io/
 //import './main.css';
 
 import { __extends } from 'tslib';
-import { Theme, createPlugin, memoize, createRef, createElement, DayHeader, DaySeriesModel, DayTableModel } from '@fullcalendar/common';
-import { DayTable, TableView, buildDayTableModel, DayGridView } from '@fullcalendar/daygrid';
+import { Theme, createPlugin, createElement, DayHeader } from '@fullcalendar/common';
+import { DayTable, DayGridView } from '@fullcalendar/daygrid';
 
 var LunarStyle2Theme = /** @class */ (function (_super) {
     __extends(LunarStyle2Theme, _super);
     function LunarStyle2Theme() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return ( _super !== null && _super.apply(this, arguments) ) || this;
     }
     return LunarStyle2Theme;
 }(Theme));
@@ -69,4 +69,3 @@ var plugin = createPlugin({
 
 export default plugin;
 export { LunarStyle2Theme };
-//# sourceMappingURL=main.js.map

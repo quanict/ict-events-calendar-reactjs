@@ -28,7 +28,7 @@ const Family = [
 
     { id:"20", title: "Nguyễn Văn Quý", father: "10", lunar: ("YEAR-07-13")},
     { id:"21", title: "Nguyễn Văn Quán", father: "10", alive: true },
-    { id:"22", title: "Nguyễn Văn Quản", father: "10", alive: true },
+    { id:"22", title: "Nguyễn Văn Quản", father: "10", lunar: ("YEAR-11-23"), 'deal': "2022" },
     { id:"23", title: "Nguyễn Văn Thiệu", father: "10", note:"3 gái" },
     { id:"24", title: "Nguyễn Văn Thuật", father: "10", alive: true },
 
@@ -38,9 +38,7 @@ const Family = [
     { id:"28", title: "Nguyễn Văn Đỏ", father: "10", alive: false },
 ];
 
-Family.push({
-    id:"28", title: "Nguyễn Đình Liệu", father: "0", lunar: ("YEAR-11-07")},
-});
+Family.push({ id:"28", title: "Nguyễn Đình Liệu", father: "0", lunar: ("YEAR-11-07")} );
 
 let events : Array<CalendarEvent> = [];
 
