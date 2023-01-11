@@ -44,6 +44,16 @@ jobs:
       #- name: Remove package-lock
       #  run: rm package-lock.json
 
+    - name: Install dependencies
+         run: |
+          if [ -e yarn.lock ];  then
+          yarn install  --frozen-lockfile
+          elif [ -e  package-lock.json ]; then
+          npm  ci
+          else
+          npm i
+            fi
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
