@@ -99,6 +99,9 @@ function MonthView(props:MonthViewProps){
                     className.push('mv-today');
                 }
                 const hasDeath = dayEvents.filter((d)=> (d && typeof d.deathDate !== 'undefined' && d.deathDate) );
+                if( hasDeath.length > 0){
+                    className.push('mv-death');
+                }
                 const hasHoliday = dayEvents.filter((d)=> (d && typeof d.type !== 'undefined' && d.type==='holiday') );
 
                 if( hasHoliday.length > 0){
@@ -111,6 +114,7 @@ function MonthView(props:MonthViewProps){
                         className.push('mv-holiday');
                     }
                 }
+
                 const today = day.date.moment;
                 if(day.date.moment.format("M")==="1" && day.date.moment.format("Y")==="2023"){
                     console.log(`=========== ${today.format("Y-MM-DD")}`, {className, hasHoliday})
@@ -119,7 +123,7 @@ function MonthView(props:MonthViewProps){
                     <span className='w-75'>
                         {day.date.moment.format('D')}
                         <i className='mv-lunar'>{index===0? day.date.format('D/M') : day.date.format('month-view')}</i>
-                        {hasDeath.length > 0 && day.avaiable && <i className='mv-event'></i>}
+                        
                     </span>
                 </div>
             })}
