@@ -6,6 +6,7 @@ import lunar from '../../Libraries/Lunnar/lunar';
 import { useParams } from 'react-router';
 import { Link } from "react-router-dom";
 import './MonthView.scss';
+import { redirectToDayRoute } from '../../Utils/StringPrototype';
 type MonthViewProps = {
     date?: any,
     className?:string,
@@ -114,7 +115,7 @@ function MonthView(props:MonthViewProps){
                 if(day.date.moment.format("M")==="1" && day.date.moment.format("Y")==="2023"){
                     console.log(`=========== ${today.format("Y-MM-DD")}`, {className, hasHoliday})
                 }
-                return <div className={className.join(' ')} key={index} onClick={(e)=>{day.date.moment.format('YMMDD').redirectToDayRoute()}}>
+                return <div className={className.join(' ')} key={index} onClick={(e)=>{redirectToDayRoute(day.date.moment.format('YMMDD'))}}>
                     <span className='w-75'>
                         {day.date.moment.format('D')}
                         <i className='mv-lunar'>{index===0? day.date.format('D/M') : day.date.format('month-view')}</i>

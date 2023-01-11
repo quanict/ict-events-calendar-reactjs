@@ -13,6 +13,16 @@ switch(window.location.hostname){
     break;
 }
 
+export function redirectToRoute(url : string) {
+    window.location.href = `${domain}/${url}`;
+    return true;
+}
+
+export function redirectToDayRoute(day: string) {
+    window.location.href = `${domain}/date/${day}`;
+    return true;
+  }
+
 // declare global {
 //   interface String {
 //     redirectToRoute() : void;

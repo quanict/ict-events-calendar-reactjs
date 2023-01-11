@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menubar } from "primereact/menubar";
+import { redirectToRoute } from '../Utils/StringPrototype';
 
 type HeaderProps = {
     fireHeaderBtn: (type:string)=>{}
@@ -17,12 +18,14 @@ function Header(props : HeaderProps){
         {
             label: "Month",
             icon: "pi pi-fw pi-calendar",
-            command: () => { 'month'.redirectToRoute() }
+            command: () => { 
+                redirectToRoute("month") 
+            }
         },
         {
             label: "Year",
             icon: "pi pi-fw pi-calendar",
-            command: () => { 'year'.redirectToRoute() }
+            command: () => { redirectToRoute('year') }
         },
     ];
 
