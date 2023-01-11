@@ -97,13 +97,7 @@ function App() {
         <Header  fireHeaderBtn={(type)=>headerBtnClickHandler} />
         <Container >
         {display !== "calendar" && (
-                <DataView
-                    //value={events.filter((item:any) => new Date(item.start) > new Date())}
-                    layout={display}
-                    itemTemplate={display === "list" ? renderListItem : renderGridItem}
-                    paginator
-                    rows={10}
-                />
+                <div />
             )}
 
         <Routes>
