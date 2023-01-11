@@ -1,6 +1,6 @@
 
 import {Lunar} from "./lunar";
-import {CAN, CHI, NGU_HANH, MENH} from "./Constants";
+import {CAN, CHI, MENH} from "./Constants";
 type NguHanh = {
     name: string;
     value: number;
@@ -66,14 +66,14 @@ class CungMenhNguHanhNgay {
 
     get menh_ngay(){
         const thienCan:string = CAN[(this.lunar.jd + 9) % 10];
-        const nguHanhFromCan:number|undefined = NguHanhFromCan.find((n)=>n.name===thienCan)?.value ?? 0;
+        // const nguHanhFromCan:number|undefined = NguHanhFromCan.find((n)=>n.name===thienCan)?.value ?? 0;
         
         const diaChi: string = CHI[(this.lunar.jd+1)%12];
-        const nguHanhFromChi:number|undefined = NguHanhFromChi.find((n)=>n.name===diaChi)?.value ?? 0;
+        // const nguHanhFromChi:number|undefined = NguHanhFromChi.find((n)=>n.name===diaChi)?.value ?? 0;
 
-        let nguHanhIndex = 0;
-        nguHanhIndex = (nguHanhFromCan + nguHanhFromChi + 0)%5-1;
-        const menh = NGU_HANH[nguHanhIndex];
+        // let nguHanhIndex = 0;
+        // nguHanhIndex = (nguHanhFromCan + nguHanhFromChi + 0)%5-1;
+        // const menh = NGU_HANH[nguHanhIndex];
 
         const menh_detail = MENH.find((n)=>n.name===`${thienCan} ${diaChi}`)?.value ?? 'empty';
         //console.log(`==== debug`, {thienCan,diaChi, nguHanhFromCan, nguHanhFromChi, nguHanhIndex, menh, menh_detail})

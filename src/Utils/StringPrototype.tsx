@@ -13,22 +13,24 @@ switch(window.location.hostname){
     break;
 }
 
-declare global {
-  interface String {
-    redirectToRoute() : void;
-    redirectToDayRoute() : void;
-  }
-}
+// declare global {
+//   interface String {
+//     redirectToRoute() : void;
+//     redirectToDayRoute() : void;
+//   }
+// }
 
-String.prototype.redirectToRoute = function () {
-  const _self = this;
-  window.location.href = `${domain}/${_self}`;
-}
+// String.prototype.redirectToRoute = function () {
+//   const _self = this;
+//   window.location.href = `${domain}/${_self}`;
+//   return;
+// }
 
-String.prototype.redirectToDayRoute = function () {
-  const _self = this;
-  window.location.href = `${domain}/date/${_self}`;
-}
+// String.prototype.redirectToDayRoute = function () {
+//   const _self = this;
+//   window.location.href = `${domain}/date/${_self}`;
+//   return;
+// }
 
 declare module 'moment' {
   export interface Moment {

@@ -9,7 +9,6 @@ import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import lunarStyle2Plugin from '../../Libraries/fullcalendar/Style2Plugin';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import {
-    getDate,
     getLunarDate,
     setDate
 } from '../../redux/date/dateSlice';
@@ -26,7 +25,6 @@ type FullBodyProps = {
 }
 
 function FullBody(props:FullBodyProps){
-    const currentDate = useAppSelector(getDate);
     const currentLunar = useAppSelector(getLunarDate);
     const dispatch = useAppDispatch();
     const {headerToolbar, themePlugin} = props;

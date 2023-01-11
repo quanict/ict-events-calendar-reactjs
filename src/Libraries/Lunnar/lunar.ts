@@ -82,7 +82,7 @@ export namespace Lunar {
         }
 
         jdn2date(jd:number) {
-            var Z, A, alpha, B, C, D, E, dd, mm, yyyy, F;
+            var Z, A, alpha, B, C, D, E, dd, mm, yyyy;
             Z = jd;
             if (Z < 2299161) {
               A = Z;
@@ -131,7 +131,7 @@ export namespace Lunar {
             regularMonths = [12];
             offsetOfTet = k >> 17;
             leapMonth = k & 0xf;
-            leapMonthLength = monthLengths[k >> 16 & 0x1];
+            leapMonthLength = monthLengths[(k >> 16) & 0x1];
             solarNY = this.jdn(1, 1, yy);
             currentJD = solarNY+offsetOfTet;
             j = k >> 4;
