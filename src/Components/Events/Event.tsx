@@ -9,5 +9,10 @@ type CalendarEvent = {
     note?: string; 
     alive?: boolean; 
     date?: any, 
-   
+
+    deathDate?:boolean
+    holiday?: boolean,
+    offset?:boolean
+    jp?: boolean,
+    
 };

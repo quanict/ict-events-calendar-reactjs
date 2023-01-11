@@ -1,0 +1,176 @@
+
+$base-color: #ccbe88;
+$grey-color: #808080;
+$grey2-color: #ebebeb;
+$pink-color: #FFDEDE;
+$weekend-color: rgb(235, 235, 235, 0.8);
+$holiday-color: rgb(25,135,84, 0.3);
+
+/**
+https://spreadsheet.dev/how-to-get-the-hexadecimal-codes-of-colors-in-google-sheets
+*/
+//$dark-blue-1: #3d85c6;
+//$light-blue-2: #9fc5e8;
+$dark-blue-1: rgb(61, 133, 198, .5);
+$light-blue-2: rgb(159, 197, 232, .4);
+
+@mixin day-colors($color) {
+  background-color: $color;
+  //border: 1px solid $color;
+}
+
+@mixin day-reset() {
+  border: unset;
+  span { background-color: unset; } 
+}
+
+@mixin day-jp() {
+    content: '🇯🇵';
+    font-size: 17px;
+    opacity: 1;
+    position: absolute;
+    left: -0.2rem;
+    bottom: -0.2rem;
+}
+
+@mixin day-jp2() {
+    content: '🌸';
+    font-size: 27px;
+    opacity: 0.6;
+    position: absolute;
+    bottom: -0.5rem;
+    left:-.2rem;
+}
+
+@mixin day-vn() {
+    content: '🌞';
+    font-size: 22px;
+    opacity: 0.6;
+    position: absolute;
+    left: 0.4rem;
+    bottom: -0.2rem;
+    z-index: 2;
+}
+
+.row {
+    > .col-7-1 {
+        flex: 0 0 auto;
+        width: 14.2857%;
+    }
+    .mv-h {
+        flex: 0 0 auto;
+        width: 14.2857%;
+        font-weight: bold;
+        text-align: center;
+        color: $base-color;
+    }
+
+    .mv-d {
+        flex: 0 0 auto;
+        width: 14.2857%;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        
+
+        &.mv-weekend span {
+            color: rgb(235, 0, 0, 0.6);
+            font-weight: bold
+        }
+
+        &.mv-holiday, &.offset-holiday { 
+            &::after { @include day-vn }
+            &.offset-holiday { 
+                &::after { opacity: 0.2; }
+            }
+        }
+
+        &.jp-holiday::after { @include day-jp2 }
+
+    &.mv-today {
+      @include day-colors($grey-color);
+      color: white;
+      .mv-lunar {
+        color: white;
+      }
+    }
+
+    span {
+      border-radius: 50%;
+      aspect-ratio : 1 / 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 8;
+
+      &:hover {
+        background-color: $base-color;
+      }
+
+      .mv-lunar {
+        position: absolute;
+        top: 15px;
+        right: 10px;
+        font-size: 0.7em;
+        color: $grey-color;
+      }
+
+      .mv-event {
+        width: 10px;
+        height: 10px;
+        background-color: #61dafb;
+        border-radius: 50%;
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
+      }
+    }
+
+    &.mv-dis {
+      background-color: unset;
+      border: unset;
+      &::after { content: '';}
+      span {
+        color: $grey-color;
+        font-weight: normal;
+        background-color: unset;
+        opacity: .2;
+        cursor: default;
+        &:hover {
+          background:none;
+        }
+      }
+    }
+   
+  }
+
+  &.m-full {
+    .mv-d, .mv-h {
+      min-height: 60px;
+      line-height: 50px;
+    }
+  }
+
+  &.m-year {
+    .mv-d {
+      line-height: unset;
+      padding: 5px;
+      font-size: .8em;
+
+      .mv-lunar {
+        top: auto;
+        bottom: 0px;
+        right: 0px;
+        font-size: .7em;
+      }
+
+      .mv-event {
+        bottom: 0;
+      }
+    }
+  }
+}

@@ -1,12 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 import { Row } from 'react-bootstrap';
-// import {events} from '../Events/Family';
 import events from '../Events/index';
 import lunar from '../../Libraries/Lunnar/lunar';
 import { useParams } from 'react-router';
 import { Link } from "react-router-dom";
-
+import './MonthView.scss';
 type MonthViewProps = {
     date?: any,
     className?:string,
@@ -14,10 +13,6 @@ type MonthViewProps = {
 }
 
 function MonthView(props:MonthViewProps){
-    const onDayClickHandler = function( date:any){
-        ;
-    }
-
     let date = props.date;
     let monthViewClass = props.className ?? 'm-full';
     let {month} = useParams();
@@ -65,7 +60,7 @@ function MonthView(props:MonthViewProps){
     return(
         <Row className={monthViewClass} >
             <div className='col-12'>
-            <Link to={monthStart.toMonthUri()} className="h4">{monthStart.format("MMMM")}</Link>
+                <Link to={monthStart.toMonthUri()} className="h4">{monthStart.format("MMMM")}</Link>
             </div>
             {dayNames.map((d, index) => <div className='mv-h' key={index} >{d}</div>)}
             {days.map((day , index) => {
@@ -102,17 +97,28 @@ function MonthView(props:MonthViewProps){
                 if( day.date.moment.isSame(moment(), 'day')){
                     className.push('mv-today');
                 }
+                const hasDeath = dayEvents.filter((d)=> (d && typeof d.deathDate !== 'undefined' && d.deathDate) );
+                const hasHoliday = dayEvents.filter((d)=> (d && typeof d.type !== 'undefined' && d.type==='holiday') );
 
-                const hasHoliday = dayEvents.filter((d)=> (d && typeof d.type !== 'undefined' && d.type=='holiday') );
                 if( hasHoliday.length > 0){
-                    className.push('mv-holiday');
+                    const dayCheck = hasHoliday[0];
+                    if( typeof dayCheck.jp !== 'undefined' && dayCheck.jp===true){
+                        className.push('jp-holiday');
+                    } else if( dayCheck.offset===true){
+                        className.push('offset-holiday');
+                    } else {
+                        className.push('mv-holiday');
+                    }
                 }
-
+                const today = day.date.moment;
+                if(day.date.moment.format("M")==="1" && day.date.moment.format("Y")==="2023"){
+                    console.log(`=========== ${today.format("Y-MM-DD")}`, {className, hasHoliday})
+                }
                 return <div className={className.join(' ')} key={index} onClick={(e)=>{day.date.moment.format('YMMDD').redirectToDayRoute()}}>
                     <span className='w-75'>
                         {day.date.moment.format('D')}
                         <i className='mv-lunar'>{index===0? day.date.format('D/M') : day.date.format('month-view')}</i>
-                        {dayEvents.length > 0 && day.avaiable && <i className='mv-event'></i>}
+                        {hasDeath.length > 0 && day.avaiable && <i className='mv-event'></i>}
                     </span>
                 </div>
             })}

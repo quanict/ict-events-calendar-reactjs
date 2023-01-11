@@ -19,7 +19,10 @@ const YearView = () =>{
     }
 
     return(
-        <Row >{months.map(month => month)}</Row>
+        <Row >
+            <Col md={12} className="h1 mt-4 mb-0" >{currentYear}</Col>
+            {months.map(month => month)}
+        </Row>
     );
 }
 

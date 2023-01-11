@@ -3,18 +3,18 @@ import lunar from '../../Libraries/Lunnar/lunar';
 
 export const Holidays = [
     { solar:"YEAR-01-01", title: "Tết Dương Lịch" },
-    { solar:"2022-01-02", title: "Nghỉ Tết Dương Lịch" },
-    { solar:"2022-01-03", title: "Nghỉ Tết Dương Lịch" },
+    { solar:"2022-01-02", offset:true },
+    { solar:"2022-01-03", offset:true },
 
     { solar:"2022-01-29", title: "Tết Nguyên Đán" },
     { solar:"2022-01-30", title: "Tết Nguyên Đán" },
     { solar:"2022-01-31", title: "Tết Nguyên Đán" },
-    { lunar:"YEAR-01-01", title: "Tết Nguyên Đán" },
-    { lunar:"YEAR-01-02", title: "Tết Nguyên Đán" },
-    { lunar:"YEAR-01-03", title: "Tết Nguyên Đán" },
-    { lunar:"YEAR-01-04", title: "Tết Nguyên Đán" },
-    { lunar:"2022-01-05", title: "Tết Nguyên Đán" },
-    { lunar:"2022-01-06", title: "Tết Nguyên Đán" },
+    { solar:"2022-02-01", title: "Tết Nguyên Đán" },
+    { solar:"2022-02-02", title: "Tết Nguyên Đán" },
+    { solar:"2022-02-03", title: "Tết Nguyên Đán" },
+    { solar:"2022-02-04", title: "Tết Nguyên Đán" },
+    { solar:"2022-02-05", title: "Tết Nguyên Đán" },
+    { solar:"2022-02-06", title: "Tết Nguyên Đán" },
 
     { lunar:"YEAR-03-10", title: "Giỗ Tổ Hùng Vương" },
     { lunar:"YEAR-03-11", title: "Nghỉ Giỗ Tổ Hùng Vương" },
