@@ -41,8 +41,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
-      - name: Remove package-lock
-        run: rm package-lock.json
+      #- name: Remove package-lock
+      #  run: rm package-lock.json
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
