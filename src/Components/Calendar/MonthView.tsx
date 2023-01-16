@@ -116,9 +116,9 @@ function MonthView(props:MonthViewProps){
                 }
 
                 const today = day.date.moment;
-                if(day.date.moment.format("M")==="1" && day.date.moment.format("Y")==="2023"){
-                    console.log(`=========== ${today.format("Y-MM-DD")}`, {className, hasHoliday})
-                }
+                // if(day.date.moment.format("M")==="1" && day.date.moment.format("Y")==="2023"){
+                //     console.log(`=========== ${today.format("Y-MM-DD")}`, {className, hasHoliday})
+                // }
                 return <div className={className.join(' ')} key={index} onClick={(e)=>{redirectToDayRoute(day.date.moment.format('YMMDD'))}}>
                     <span className='w-75'>
                         {day.date.moment.format('D')}

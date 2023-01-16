@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 import MonthView from './MonthView';
+import Footer from '../Footer';
 
 /**
  * https://codesandbox.io/s/jjmky5047y?file=/src/Year.js:3334-3362
@@ -18,12 +19,13 @@ const YearView = () =>{
         )
     }
 
-    return(
+    return(<>
         <Row >
             <Col md={12} className="h1 mt-4 mb-0" >{currentYear}</Col>
             {months.map(month => month)}
         </Row>
-    );
+        <Footer />
+        </>);
 }
 
 export default YearView;

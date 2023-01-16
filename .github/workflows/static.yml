@@ -33,7 +33,7 @@ jobs:
         node-version: [14.19.3]
 
     env:
-      PUBLIC_URL: //quanict.github.io/ict-events-calendar-reactjs/
+      PUBLIC_URL: /ict-events-calendar-reactjs/
       # REACT_APP_MY_SECRET: ${{ secrets.MY_SECRET }}
       # REACT_APP_HOSTS: //loospswmzn.quanict.com,//zhqlewtnnp.quanict.com,//vnrnhqkujr.quanict.com,//qrseyxujmp.quanict.com,//ezndtfqttk.quanict.com,//oamgohwmxv.quanict.com,//kapmmsvltn.quanict.com,//hojvvbhhaq.quanict.com,//rgmehgpjkf.quanict.com,//cogmznxigi.quanict.com
 
