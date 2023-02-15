@@ -1,14 +1,11 @@
 import React, { Fragment } from 'react';
-import './App.scss';
+import { Route, Routes } from "react-router-dom";
 import { Container } from 'react-bootstrap';
-import { DayView, YearView, MonthView } from './Components/Calendar';
-import Header from './Components/Header';
 import {} from './Utils/StringPrototype';
+import { DayView, YearView, MonthView } from './pages';
+import {Header} from './Components';
+import './App.scss';
 
-import {
-    Route,
-    Routes
-  } from "react-router-dom";
 
 function App() {
   return (

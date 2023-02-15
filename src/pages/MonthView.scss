@@ -7,6 +7,9 @@ $pink-color: #FFDEDE;
 $weekend-color: rgb(235, 235, 235, 0.8);
 $holiday-color: rgb(25,135,84, 0.3);
 
+@import "../bootstrap/5.3/functions";
+@import "../bootstrap/5.3/variables";
+
 /**
 https://spreadsheet.dev/how-to-get-the-hexadecimal-codes-of-colors-in-google-sheets
 */
@@ -194,5 +197,31 @@ $light-blue-2: rgb(159, 197, 232, .4);
         bottom: 0;
       }
     }
+  }
+}
+
+.lunar-subtitle {
+  font-size: 1rem;
+  color: $success-text;
+  font-weight: normal;
+
+  &::before, &::after{
+    color: $warning-text;
+    font-weight: bold;
+  }
+
+  &::before {
+    content: '「';
+    margin-right: 5px;
+  }
+
+  &::after {
+    content: '」';
+    margin-left: 5px;
+    
+  }
+
+  > span {
+    margin: 0 5px;
   }
 }

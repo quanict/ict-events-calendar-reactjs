@@ -252,7 +252,7 @@ export namespace Lunar {
       }
         
       getCanChiYear(year:number=0) : string {
-          if( typeof year === 'undefined'){
+          if( typeof year === 'undefined' || !year){
               year = this.lunar.year;
           }
           return CAN[(year+6) % 10] + " " + CHI[(year+8) % 12];

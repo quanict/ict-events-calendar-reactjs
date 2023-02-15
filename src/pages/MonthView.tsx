@@ -1,12 +1,16 @@
 import React from 'react';
-import moment from 'moment';
-import { Row } from 'react-bootstrap';
-import events from '../Events/index';
-import lunar from '../../Libraries/Lunnar/lunar';
-import { useParams } from 'react-router';
 import { Link } from "react-router-dom";
+import { useParams } from 'react-router';
+//import moment from 'moment';
+import { Row } from 'react-bootstrap';
+import { Events } from '../Components';
+import { moment, lunar, Lunar, toLunar } from '../Libraries';
+//import lunar from '../Libraries/Lunnar/lunar';
+
+
+import { redirectToDayRoute } from '../Utils/StringPrototype';
 import './MonthView.scss';
-import { redirectToDayRoute } from '../../Utils/StringPrototype';
+
 type MonthViewProps = {
     date?: any,
     className?:string,
@@ -22,8 +26,11 @@ function MonthView(props:MonthViewProps){
     }
     
     if( !date ){
-        date = moment('2022-08-01');
+        date = moment();
     }
+
+    const lunarDate : Lunar.LunarDate = toLunar( date as string) ;
+
     const monthStart = date.clone().startOf('month');
     const monthEnd = date.clone().endOf('month');
     const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -60,13 +67,18 @@ function MonthView(props:MonthViewProps){
 
     return(
         <Row className={monthViewClass} >
-            <div className='col-12'>
-                <Link to={monthStart.toMonthUri()} className="h4">{monthStart.format("MMMM")}</Link>
+            <div className='col-12 mb-3'>
+                <Link to={monthStart.toMonthUri()} className="h4">
+                    {monthStart.format("MMMM")} ({monthStart.format("MM-YYYY")})
+                    <label className='lunar-subtitle'>
+                        <span className='month-name'>{lunarDate.can_chi.format("MMMM")}</span>
+                        <span className='year-name'>{lunarDate.can_chi.format("YYYY")}</span>
+                    </label>
+                </Link>
             </div>
             {dayNames.map((d, index) => <div className='mv-h' key={index} >{d}</div>)}
             {days.map((day , index) => {
-                
-                const dayEvents = events.filter((event)=>{
+                const dayEvents = Events.filter((event)=>{
                     if( !event || !event.date ){
                         return false;
                     }
@@ -115,7 +127,7 @@ function MonthView(props:MonthViewProps){
                     }
                 }
 
-                const today = day.date.moment;
+                // const today = day.date.moment;
                 // if(day.date.moment.format("M")==="1" && day.date.moment.format("Y")==="2023"){
                 //     console.log(`=========== ${today.format("Y-MM-DD")}`, {className, hasHoliday})
                 // }

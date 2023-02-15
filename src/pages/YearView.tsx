@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 import MonthView from './MonthView';
-import Footer from '../Footer';
+import Footer from '../Components/partials/Footer';
 
 /**
  * https://codesandbox.io/s/jjmky5047y?file=/src/Year.js:3334-3362

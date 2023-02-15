@@ -1,25 +1,22 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import events from '../Events/index';
-import moment from 'moment';
-import lunar from '../../Libraries/Lunnar/lunar';
+import {Events} from '../Components';
+import  { toLunar, isMoment} from '../Libraries';
 
-import "./size_big.scss";
+import "./DayView.scss";
 
 function DayView(){
     let {date} = useParams();
-    const current = lunar( moment(date) );
+    const current = toLunar( date as string) ;
     const monday = current.moment.day(1);
     const dayOfWeek=[0,1,2,3,4,5,6];
 
-    const dayEvents = events.filter((event)=>{
+    const dayEvents = Events.filter((event)=>{
         if( !event || !event.date ){
             return false;
         }
-        if( moment.isMoment(event.date) ){
+        if( isMoment(event.date) ){
             return current.moment.diff(event.date, 'days')===0
         } else {
             return current.moment.diff(event.date.moment, 'days')===0
@@ -70,8 +67,6 @@ function DayView(){
                 <div>{current.can_chi.format("HHHH")}</div>
                 <div>{current.can_chi.tiet_khi}</div>
             </Col>
-
-            
         </Row>
     );
 }
