@@ -33,7 +33,7 @@ const Family = [
     { id:"24", title: "Nguyễn Văn Thuật", father: "10", alive: true },
 
     { id:"25", title: "Nguyễn Tiến Dũng", father: "10", alive: true },
-    { id:"26", title: "Nguyễn Xuân Toàn", father: "10", alive: true },
+    { id:"26", title: "Nguyễn Xuân Toàn", father: "10", alive: false, lunar: ("YEAR-03-06"), 'deal': "2020" },
     { id:"27", title: "Nguyễn Xuân Trường", father: "10", alive: false },
     { id:"28", title: "Nguyễn Văn Đỏ", father: "10", alive: false },
 ];
